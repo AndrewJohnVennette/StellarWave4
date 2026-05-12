@@ -1,0 +1,250 @@
+@font-face {
+    font-family: Michroma-Regular;
+    src: url(Michroma-Regular.ttf);
+}
+@view-transition{
+    navigation:auto;
+}
+:root {
+    --basicFontSize: .75rem;
+    --basicFontFamily: Michroma-Regular;
+    --bg:          #0f1117;
+    --surface:     #161b27b7;
+    --border:      #ffffff;
+    --label-bg:    #161b27;
+    --accent:      #c9a96e;
+    --text:        #e8e4dc;
+    --text-muted:  #8a8880;
+    --boxBorder: rgba(255, 255, 255, .25);
+    --radius:      14px;
+    --border-w:    2px;
+    --label-pad-x: 18px;
+    --label-pad-y: 6px;
+    --panel2:    #111828;
+    --letterColor01: rgba(53, 244, 97, 0.656);
+}
+body{
+    background-color: #000;
+    margin: 0;
+    color: #fff;
+    font-family: var(--basicFontFamily);
+    font-size: var(--basicFontSize);
+    overflow-x: hidden;
+}
+a{
+    text-decoration: none;
+}
+/* ***************************************************** */
+section.servicePage{
+    margin-top: 15vh;
+}
+
+.card {
+    position: relative;
+    border: var(--border-w) solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.6rem 2.2rem 2rem;
+    background: var(--surface);
+    margin: 1.8rem auto;
+    width: 45vw;
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.04) inset,
+        0 8px 40px rgba(0,0,0,.55);
+    
+    &>label{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        background: var(--label-bg);
+        color: var(--accent);
+        padding: var(--label-pad-y) var(--label-pad-x);
+        border-radius: 30%;
+
+        outline: var(--border-w) solid var(--border);
+        outline-offset: 0px;
+
+        /* font-family: 'Playfair Display', Georgia, serif; */
+        font-size: .88rem;
+        font-weight: 500;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        animation: labelDrop .6s cubic-bezier(.22,1,.36,1) both;
+    }
+}
+
+/* ── Locked state ────────────────────────────────── */
+.card.locked {
+    border-color: rgba(255, 255, 255, .18);
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.02) inset,
+        0 4px 20px rgba(0,0,0,.4);
+
+    & > label {
+        color: var(--text-muted);
+        outline-color: rgba(255, 255, 255, .18);
+    }
+}
+
+/* Hide fields when locked */
+.card.locked .card__fields {
+    display: none;
+}
+
+/* ── Unlock animation ────────────────────────────── */
+.card.unlocking {
+    animation: cardUnlock .55s cubic-bezier(.22,1,.36,1) both;
+    & > label {
+        color: var(--accent);
+        outline-color: var(--border);
+        animation: labelPop .95s cubic-bezier(.22,1,.36,1) both;
+    }
+}
+
+.card.unlocking .card__fields {
+    display: block;
+    animation: fieldsReveal .6s .1s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* ── Content ─────────────────────────────────────── */
+.card__content {
+    color: var(--text);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.75;
+    letter-spacing: .01em;
+    text-align: center;
+
+    animation: fadeUp .7s .15s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* ── Input Text Box ──────────────────────────────── */
+.inputBoxData{
+    position: relative;
+    width: 70%;
+    margin: 1.5rem auto;
+    & input{
+        background: transparent;
+        width: 100%;
+        padding: 19px 0;
+        border: solid 1px var(--boxBorder);
+        border-radius: 5px;
+        outline: none;
+        color: #fff;
+        font-size: 1rem;
+        transition: .5s;
+    }
+    & label{
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 10px;
+        pointer-events: none;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, .25);
+        text-transform: uppercase;
+        transition: .5s;
+    }
+    & input:valid ~ label,
+    & input:focus ~ label{
+        color: #00dfc4;
+        transform: translateX(10px) translateY(-7px);
+        font-size: .65rem;
+        padding: 0 10px;
+        background: #1d2b3a;
+        border-left: solid 1px #00dfc4;
+        border-right: solid 1px #00dfc4;
+        letter-spacing: .2rem;
+    }
+    & input:valid,
+    & input:focus{
+        border: solid 1px #00dfc4;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Responsive adjustment: stack columns on small screens */
+    /* @media (max-width: 768px) {
+        #custom-layout-wrapper{ 
+            & .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    } */
+
+    .blink-01{
+        /* animation: blinkType01 1s steps(1, end) infinite ; */
+        animation: blinkType01 2s infinite ;
+    }
+    .blink-02{
+        /* animation: blinkType01 1s steps(1, end) infinite ; */
+        animation: blinkType02 3s infinite ;
+    }
+    .blink-03{
+        /* animation: blinkType01 1s steps(1, end) infinite ; */
+        animation: blinkType03 1s infinite ;
+    }
+
+    @keyframes blinkType01 {
+        0%{
+            opacity: 1;
+        }
+        50%{
+            opacity: 0;
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+    @keyframes blinkType02 {
+        0%{
+            opacity: 1;
+            color: rgb(146, 226, 146);
+        }
+        25%{
+            opacity: 1;
+            color: rgb(144, 68, 68);
+        }
+        50%{
+            opacity: 1;
+            color: rgb(51, 41, 128);
+        }
+        75%{
+            opacity: 1;
+            color: rgb(177, 208, 22);
+        }
+        100%{
+            opacity: 0;
+            color: rgb(147, 21, 101);
+        }
+    }
+    @keyframes blinkType03 {
+        0%{
+            opacity: 1;
+        }
+        50%{
+            opacity: 0;transform: scale(2);
+        }
+        51%{
+            opacity: 0;
+            transform: scale(0);
+        }
+        100%{
+            opacity: 1;
+        }
+    }

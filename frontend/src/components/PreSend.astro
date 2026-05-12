@@ -1,0 +1,34 @@
+---
+const { paymente = "/payment"} = Astro.props;
+---
+<section class="servicePage">
+    <article class="card" id="check-list">
+        <label>Check List</label>
+        <section class="inputBoxData">
+            <a href={paymente}class="proceed-to-payment" id="proceed-to-payment">
+                <span id="lng-selectedOp-Payment">
+                    Proceed to Payment 
+                </span>
+            </a>
+        </section>
+    </article>
+</section>
+<style>
+    #check-list{
+        & .inputBoxData{
+            display: grid;
+            place-items: center;
+            min-height: 10vh;
+        }
+        & .proceed-to-payment{
+            padding: 1.7vh 3vw;
+            border: solid 3px var(--boxBorder);
+            border-radius: 1.3rem;
+            background-color: var(--letterColor01);
+            color:rgba(255, 255, 255, .7);
+            font-size: clamp(1.1rem, var(--basicFontSize) * 3, 1.5rem);
+            font-family: var(--basicFontFamily);
+        }
+    }
+
+</style>
