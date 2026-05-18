@@ -16,13 +16,13 @@ const { titleColum3 } = Astro.props;
                 <li>We’ll provide you with confirmation that we successfully transmitted what you sent us.</li>
             </ol>
         </article>
-    <article class="column">
+        <article class="column">
             <h2>{titleColum2}</h2>
-            <slot></slot>
+            <slot name="column2" />
         </article>
         <article class="column">
             <h2>{titleColum3}</h2>
-            <slot></slot>
+            <slot name="column3" />
         </article>
     </section>
 </main>
@@ -129,23 +129,23 @@ const { titleColum3 } = Astro.props;
     @keyframes blinkType02 {
         0%{
             opacity: 1;
-            color: rgb(146, 226, 146);
+            color: rgb(255, 255, 255);
         }
         25%{
             opacity: 1;
-            color: rgb(144, 68, 68);
+            color: rgb(55, 76, 63);
         }
         50%{
             opacity: 1;
-            color: rgb(51, 41, 128);
+            color: rgb(9, 236, 77);
         }
         75%{
             opacity: 1;
-            color: rgb(177, 208, 22);
+            color: rgb(55, 76, 63);
         }
         100%{
             opacity: 0;
-            color: rgb(147, 21, 101);
+            color: rgb(255, 255, 255);
         }
     }
     @keyframes blinkType03 {
