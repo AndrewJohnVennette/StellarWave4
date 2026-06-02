@@ -37,6 +37,13 @@ a{
 /* ***************************************************** */
 section.servicePage{
     margin-top: 15vh;
+    & h2{
+        width: 50%;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0 50%;
+    }
 }
 
 .card {
@@ -264,15 +271,21 @@ section.servicePage{
 
     .blink-01{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType01 2s infinite ;
+        animation: blinkType02 0.9s infinite ;
     }
     .blink-02{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType02 3s infinite ;
+        animation: blinkType02 .9s infinite ;
     }
     .blink-03{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType03 1s infinite ;
+        animation: blinkType02 1s infinite ;
+    }
+
+    @keyframes blinkType00 {
+        0%   { border-color: #fff; }
+        50%  { border-color: rgba(14, 219, 86, .9); }
+        100% { border-color: #fff; }
     }
 
     @keyframes blinkType01 {
@@ -291,18 +304,12 @@ section.servicePage{
             opacity: 1;
             color: rgb(255, 255, 255);
         }
-        25%{
-            opacity: 1;
-            color: rgb(55, 76, 63);
-        }
+        
         50%{
             opacity: 1;
             color: rgb(9, 236, 77);
         }
-        75%{
-            opacity: 1;
-            color: rgb(55, 76, 63);
-        }
+        
         100%{
             opacity: 0;
             color: rgb(255, 255, 255);

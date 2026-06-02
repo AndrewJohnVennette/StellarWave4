@@ -5,7 +5,19 @@ import PaymetMethod from '../components/PaymentMethod.astro'
 const Name = "Stellarwaves-5";
 ---
 <Layout title={Name}>
-	<PaymetMethod>
+    <main>
+        <PaymetMethod>
 
-    </PaymetMethod>
+        </PaymetMethod>   
+    </main>
 </Layout>
+<style>
+    body{
+        display: grid;
+        place-items: center;
+    }
+    main{
+        height: auto;
+        margin: 15rem 0 45vh 0;
+    }
+</style>

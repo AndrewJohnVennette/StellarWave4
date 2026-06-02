@@ -104,15 +104,21 @@ const { titleColum3 } = Astro.props;
 
     .blink-01{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType01 2s infinite ;
+        animation: blinkType00 2s infinite ;
     }
     .blink-02{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType02 3s infinite ;
+        animation: blinkType00 .9s infinite ;
     }
     .blink-03{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType03 1s infinite ;
+        animation: blinkType00 1s infinite ;
+    }
+
+    @keyframes blinkType00 {
+        0%   { border-color: #fff; }
+        50%  { border-color: rgba(14, 219, 86, .9); }
+        100% { border-color: #fff; }
     }
 
     @keyframes blinkType01 {

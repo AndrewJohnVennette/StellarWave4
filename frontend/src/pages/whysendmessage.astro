@@ -27,7 +27,7 @@ const Name = "Stellarwaves-5";
 <style>
     body{
         /* background-image: url(../assets/images/background/star-bottle-4-blu.webp) center / cover no-repeat; */
-        background: center / cover no-repeat url('../assets/images/background/star-bottle-4-blu.webp');
+        background: center / cover no-repeat url(../assets/images/background/new/saturn-farewell.webp);
     }
     /* p{
         color: #fff;
@@ -77,15 +77,21 @@ const Name = "Stellarwaves-5";
 
     .blink-01{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType01 2s infinite ;
+        animation: blinkType00 0.2s infinite ;
     }
     .blink-02{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType02 3s infinite ;
+        animation: blinkType02 0.9s infinite ;
     }
     .blink-03{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType03 1s infinite ;
+        animation: blinkType00 0.9s infinite ;
+    }
+
+    @keyframes blinkType00 {
+        0%   { border-color: #fff; }
+        50%  { border-color: rgba(14, 219, 86, .9); }
+        100% { border-color: #fff; }
     }
 
     @keyframes blinkType01 {
@@ -102,23 +108,17 @@ const Name = "Stellarwaves-5";
     @keyframes blinkType02 {
         0%{
             opacity: 1;
-            color: rgb(146, 226, 146);
+            color: rgb(255,255,255);
         }
-        25%{
-            opacity: 1;
-            color: rgb(144, 68, 68);
-        }
+        
         50%{
             opacity: 1;
-            color: rgb(51, 41, 128);
+            color: rgba(14, 219, 86, .9);
         }
-        75%{
-            opacity: 1;
-            color: rgb(177, 208, 22);
-        }
+        
         100%{
             opacity: 0;
-            color: rgb(147, 21, 101);
+            color: rgb(255,255,255);
         }
     }
     @keyframes blinkType03 {
