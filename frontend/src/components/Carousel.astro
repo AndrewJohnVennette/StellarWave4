@@ -150,11 +150,12 @@ const { services = "/services"} = Astro.props;
         /*********************** carousel ***********************/
         :root{
             --titleSize: 2.9rem;
-            --titleLineHeight:1.1em
+            --titleLineHeight:1.1em;
+            --constant01:25px;
         }
         .carousel{
             height: 100vh;
-            margin-top: -50px;
+            margin-top: calc(var(--constant01) * -1) ;
             width: 100vw;
             overflow: hidden;
             position: relative;
@@ -247,15 +248,17 @@ const { services = "/services"} = Astro.props;
         /*********************** Thumbnail ***********************/
         .thumbnail{
             position: absolute;
-            bottom: 50px;
+            bottom: var(--constant01);
             left: 50%;
             width: max-content;
             z-index: 100;
             display: flex;
             gap: 20px;
             & .item{
-                width: 150px;
-                height: 220px;
+                /* width: 150px;
+                height: 220px; */
+                width: 120px;
+                height: 80px;
                 flex-shrink: 0;
                 position: relative;
                 & img{
