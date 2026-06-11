@@ -393,11 +393,11 @@ const destinations = {
     },
 
     teegarden: {
-        name: "Estrella de Teegarden",
+        name: "Red Drorf Teegarden",
         distance: "12.5 AL",
         location: "RA 02h 53m 01s / Dec +16° 52′ 53″",
         arrival: "12 años, 5 meses, 29 días, 22 horas, 48 minutos, 0 segundos",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Teegarden%27s_Star_location.png/600px-Teegarden%27s_Star_location.png",
+        image: "/images/destinationBlock/04TeegardensStar.jpeg",
         comments: "One of the closest red dwarfs to the Sun, only discovered in 2003. It hosts two planets with masses very similar to Earth and stable surface temperatures that could allow liquid water. Its small size makes it nearly invisible to the naked eye, but its worlds make it a star of enormous scientific interest."
     },
 
@@ -406,7 +406,7 @@ const destinations = {
         distance: "582 AL",
         location: "RA 19h 54m 37s / Dec +43° 57′ 18″",
         arrival: "582 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Kepler-186f.jpg/800px-Kepler-186f.jpg",
+        image: "/images/destinationBlock/05Kepler-186f.jpeg",
         comments: "The first confirmed Earth-sized planet found in the habitable zone of another star. It orbits Kepler-186, an M-dwarf in the constellation Cygnus. Although it receives less energy than Earth and its atmospheric conditions are unknown, its discovery in 2014 marked a historic milestone in modern astronomy."
     },
 
@@ -415,7 +415,7 @@ const destinations = {
         distance: "12.2 AL",
         location: "RA 07h 27m 24s / Dec +05° 13′ 33″",
         arrival: "12 años, 2 meses, 12 días, 16 horas, 19 minutos, 12 segundos",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
+        image: "/images/destinationBlock/06Luyten-b.jpeg",
         comments: "A super-Earth orbiting Luyten's Star (GJ 273), a red dwarf in Canis Minor. At just 12.2 light-years away and with a mass of ~2.9 Earths, it is one of the closest known potentially habitable exoplanets. It was selected as a target by the Messaging Extraterrestrial Intelligence (METI) project in 2017."
     },
 
@@ -427,7 +427,7 @@ const destinations = {
         distance: "66 AL",
         location: "RA 02h 07m 10s / Dec +23° 27′ 45″",
         arrival: "66 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Aries_constellation_map.svg/800px-Aries_constellation_map.svg.png",
+        image: "/images/destinationBlock/006Aries.jpeg",
         comments: "Hamal, the brightest star in Aries, is an orange giant roughly 14 times larger than the Sun. The Ram constellation was historically crucial: it marked the vernal equinox in antiquity. Situated between Pisces and Taurus, Aries is modest in brightness but immense in astronomical and mythological significance."
     },
 
@@ -436,7 +436,7 @@ const destinations = {
         distance: "65 AL",
         location: "RA 04h 35m 55s / Dec +16° 30′ 33″",
         arrival: "65 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Taurus_constellation_map.svg/800px-Taurus_constellation_map.svg.png",
+        image: "/images/destinationBlock/007Tauro.jpeg",
         comments: "Aldebaran, the eye of the Bull, is a red giant 44 times the diameter of the Sun and the 14th brightest star in the sky. Taurus also hosts the Pleiades and the Hyades, two of the most famous star clusters. The constellation has guided sailors and farmers for more than five millennia."
     },
 
@@ -445,7 +445,7 @@ const destinations = {
         distance: "34 AL",
         location: "RA 07h 45m 19s / Dec +28° 01′ 35″",
         arrival: "34 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Gemini_constellation_map.svg/800px-Gemini_constellation_map.svg.png",
+        image: "/images/destinationBlock/008Geminis.jpeg",
         comments: "Pollux, the brightest star in Gemini, is an orange giant with a confirmed exoplanet, Pollux b. At 34 light-years away, it is one of the closest giant stars to the Sun. The Twins constellation represents Castor and Pollux, the divine twin heroes of Greek mythology and patron protectors of sailors."
     },
 
@@ -463,7 +463,7 @@ const destinations = {
         distance: "79 AL",
         location: "RA 10h 08m 22s / Dec +11° 58′ 02″",
         arrival: "79 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Leo_constellation_map.svg/800px-Leo_constellation_map.svg.png",
+        image: "/images/destinationBlock/005Leo.jpeg",
         comments: "Regulus, the heart of the Lion, is a blue-white star spinning so fast its equator bulges noticeably outward. It is the closest first-magnitude star to the ecliptic. The Leo constellation is easily recognised by its sickle-shaped asterism, which resembles a backwards question mark in the night sky."
     },
 
@@ -568,153 +568,6 @@ function arrival(ly) {
 // console.log(arrival(4.24));
 // → "4 años, 2 meses, 28 días, 19 horas, 33 minutos, 36 segundos"
 
-export { destinations, arrival };
-    // const destinations = {
-    //     centauri:{
-    //         name: "Proxima Centauri b",
-    //         distance: "4.24 AL",
-    //         location: "Constellation Centaurus",
-    //         arrival: "~7 months (Hohmann)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/800px-OSIRIS_Mars_true_color.jpg",
-    //         comments: "La estrella más cercana a nosotros. Tiene un planeta en la 'zona habitable'"
-    //     },
-    //     trappist: {
-    //         name: "Trappist-1",
-    //         distance: "39.6 AL",
-    //         location: "Constellation Centaurus",
-    //         arrival: "~7 months (Hohmann)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/800px-OSIRIS_Mars_true_color.jpg",
-    //         comments: "Un sistema con 7 planetas rocosos similares a la Tierra. ¡Siete oportunidades de ser escuchado!"
-    //     },
-    //     gliese: {
-    //         name: "Gliese 581g",
-    //         distance: "20.3 AL",
-    //         location: "Jovian System — Moon of Jupiter",
-    //         arrival: "~6 years (direct trajectory)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Europa-moon-with-margins.jpg/800px-Europa-moon-with-margins.jpg",
-    //         comments: "Uno de los primeros candidatos a 'Exoterra' descubiertos. Un destino clásico para mensajes."
-    //     },
-    //     teegarden: {
-    //         name: "Teegarden's Star",
-    //         distance: "12.5 AL",
-    //         location: "Saturnian System — Moon of Saturn",
-    //         arrival: "~7 years (Cassini-class)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Titan_in_true_color.jpg/768px-Titan_in_true_color.jpg",
-    //         comments: "Posee dos planetas con masas muy similares a la Tierra y temperaturas estables."
-    //     },
-    //     kepler: {
-    //         name: "Kepler-186f",
-    //         distance: "582 AL",
-    //         location: "Alpha Centauri System",
-    //         arrival: "~100 years (Breakthrough Starshot)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Artist%27s_impression_of_Proxima_Centauri_b.jpg/800px-Artist%27s_impression_of_Proxima_Centauri_b.jpg",
-    //         comments: "El primer planeta del tamaño de la Tierra descubierto en la zona habitable de otra estrella."
-    //     },
-    //     luyten: {
-    //         name: "Luyten b",
-    //         distance: "12.2 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: "Un destino cercano y muy prometedor para la habitabilidad."
-    //     },
-    //     aries: {
-    //         name: "Aries",
-    //         distance: "66 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     taurus: {
-    //         name: "Taurus",
-    //         distance: "444 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     geminis: {
-    //         name: "Geminis",
-    //         distance: "34 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     cancer: {
-    //         name: "Cancer",
-    //         distance: "577 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     leo: {
-    //         name: "Leo",
-    //         distance: "79 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     virgo: {
-    //         name: "Virgo",
-    //         distance: "260 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     libra: {
-    //         name: "Libra",
-    //         distance: "20 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     scorpio: {
-    //         name: "Scorpio",
-    //         distance: "550 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     sagittarius: {
-    //         name: "Sagittarius",
-    //         distance: "26000 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     capricorn: {
-    //         name: "Capricorn",
-    //         distance: "39 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     aquarium: {
-    //         name: "Aquarium",
-    //         distance: "40 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     },
-    //     pisces: {
-    //         name: "Pisces",
-    //         distance: "294 AL",
-    //         location: "Cygnus Constellation",
-    //         arrival: "~25 million years (0.05c vessel)",
-    //         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kepler-452b_artist_concept.jpg/800px-Kepler-452b_artist_concept.jpg",
-    //         comments: ""
-    //     }
-    // };
 
     const select = document.getElementById('destinationSelect');
     const fields = {
