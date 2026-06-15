@@ -130,25 +130,6 @@
             }
         } 
     }
-    /* .select-wrap select {
-        width: 100%;
-        appearance: none;
-        background: var(--panel2);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        color: var(--text);
-        /* font-family: 'Exo 2', sans-serif; * /
-        font-size: clamp(.9rem, 2.5vw, 1rem);
-        font-weight: 500;
-        padding: .75rem 3rem .75rem 1.1rem;
-        cursor: pointer;
-        transition: border-color .2s, box-shadow .2s;
-        outline: none;
-    } */
-    /* .select-wrap select:focus {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(61,142,240,.2);
-    } */
     .select-arrow {
         position: absolute; 
         right: 1rem; 
@@ -160,10 +141,6 @@
             display: block; 
         }
     }
-    /* .select-arrow svg { 
-        display: block; 
-    } */
-
     /* ── INFO GRID ── */
     .info-grid {
         display: grid;
@@ -181,33 +158,7 @@
         flex-direction: column; 
         gap: .25rem; 
     }
-    .info-label {
-      /* font-size: .65rem;
-      font-weight: 600;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--label); */
-    }
-    .info-value {
-      /* font-size: clamp(.9rem, 2.5vw, 1rem);
-      font-weight: 500;
-      color: var(--value);
-      background: var(--panel2);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: .5rem .8rem;
-      min-height: 2.4rem;
-      transition: color .3s, border-color .3s; */
-    }
-    .info-value.populated {
-      /* border-color: rgba(61,142,240,.4);
-      color: var(--value); */
-    }
-    .info-value:not(.populated) { 
-        /* color: var(--text-dim); 
-        font-style: italic; 
-        font-size: .85rem;  */
-    }
+    
 
     /* ── DIVIDER ── */
     .divider {
@@ -229,7 +180,9 @@
         border: 1px solid var(--border);
         background: var(--panel2);
         & img {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
             display: block;
             transition: opacity .5s ease, transform .6s ease;
             opacity: 0;
@@ -347,7 +300,39 @@
     .info-value.pulse { 
         /* animation: dataPulse .6s ease-out;  */
     }
+/* ------------------- Media Query section  -------------------*/
+/* 1. Mobile under 400vw */
+@media screen and (max-width: 400px) {
+    /* Your mobile styles here */
+    .card {
+    padding: 2.6rem 1rem 2rem;
+    margin: 1.8rem auto;
+    width: 75vw;
+    }
+    .inputBoxData{
+        width: 70vw;
+        margin: 1.5rem auto;
+    }
+    .destination-image-wrap {
+        & img {
+            width: 100%; 
+            height: 100%; 
+        }
+    }        
+    
+}
 
+/* 2. Tables between 800px and 1028px (inclusive) */
+@media screen and (min-width: 800px) and (max-width: 1028px) {
+    /* Your tablet/mid-size styles here */
+
+}
+
+/* 3. Everything above 1028px */
+@media screen and (min-width: 1028.01px) { 
+    /* Your desktop/large screen styles here */
+
+}
 </style>
 
 <script>
@@ -445,7 +430,7 @@ const destinations = {
         distance: "34 AL",
         location: "RA 07h 45m 19s / Dec +28° 01′ 35″",
         arrival: "34 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
-        image: "/images/destinationBlock/008Geminis.jpeg",
+        image: "/images/destinationBlock/008BGeminis.jpeg",
         comments: "Pollux, the brightest star in Gemini, is an orange giant with a confirmed exoplanet, Pollux b. At 34 light-years away, it is one of the closest giant stars to the Sun. The Twins constellation represents Castor and Pollux, the divine twin heroes of Greek mythology and patron protectors of sailors."
     },
 
@@ -526,7 +511,7 @@ const destinations = {
         distance: "294 AL",
         location: "RA 01h 31m 29s / Dec +15° 20′ 45″",
         arrival: "294 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Pisces_constellation_map.svg/800px-Pisces_constellation_map.svg.png",
+        image: "/images/destinationBlock/pesicis.jpeg",
         comments: "Eta Piscium is the brightest star in Pisces, a yellow giant roughly 316 times more luminous than the Sun. Pisces is the last constellation of the zodiac and currently hosts the vernal equinox point due to the precession of the equinoxes. In mythology, it represents Aphrodite and Eros transformed into fish."
     }
 

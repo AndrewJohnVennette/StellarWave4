@@ -38,11 +38,11 @@ a{
 section.servicePage{
     margin-top: 15vh;
     & h2{
-        width: 50%;
+        width: 50vw;
         position: relative;
         left: 50%;
         transform: translateX(-50%);
-        padding: 0 50%;
+        /* padding: 0 50%; */
     }
 }
 
