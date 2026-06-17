@@ -11,12 +11,6 @@
             <section class="select-wrap">
                 <select id="destinationSelect">
                     <option value="">— Select a destination —</option>
-                    <option value="centauri">Proxima Centauri b</option>
-                    <option value="trappist">Trappist-1</option>
-                    <option value="gliese">Gliese 581g</option>
-                    <option value="teegarden">Teegarden's Star</option>
-                    <option value="kepler">Kepler-186f</option>
-                    <option value="luyten">Luyten b</option>
                     <option value="aries">Aries</option>
                     <option value="taurus">Taurus</option>
                     <option value="geminis">Geminis</option>
@@ -29,6 +23,12 @@
                     <option value="capricorn">Capricorn</option>
                     <option value="aquarium">Aquarium</option>
                     <option value="pisces">Pisces</option>
+                    <option value="centauri">Proxima Centauri b</option>
+                    <option value="trappist">Trappist-1</option>
+                    <option value="gliese">Gliese 581g</option>
+                    <option value="teegarden">Teegarden's Star</option>
+                    <option value="kepler">Kepler-186f</option>
+                    <option value="luyten">Luyten b</option>
                 </select>
                 <span class="select-arrow">
                     <svg width="14" height="9" viewBox="0 0 14 9" fill="none">
@@ -40,19 +40,19 @@
             <!-- Info Grid -->
             <section class="info-grid">
                 <div class="info-item">
-                    <span class="info-label">Name</span>
+                    <span class="info-label">Name: </span>
                     <div class="info-value" id="infoName">—</div>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Distance</span>
+                    <span class="info-label">Distance: </span>
                     <div class="info-value" id="infoDistance">—</div>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Location</span>
+                    <span class="info-label">Location: </span>
                     <div class="info-value" id="infoLocation">—</div>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Arrival Time</span>
+                    <span class="info-label">Arrival Time: </span>
                     <div class="info-value" id="infoArrival">—</div>
                 </div>
             </section>
@@ -84,7 +84,9 @@
             <!-- Comments -->
             <section class="comments-section">
                 <p class="section-title">Destination Comments</p>
-                <textarea id="destComments" placeholder="Select a destination to load mission notes…" readonly></textarea>
+                <div class="destination-image-wrap" id="imageWrap">
+                    <textarea id="destComments" placeholder="Select a destination to load mission notes…" readonly></textarea>
+                </div>
             </section>
 
         </section><!-- /card -->
@@ -162,9 +164,9 @@
 
     /* ── DIVIDER ── */
     .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
-      margin: 1.5rem 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+        margin: 1.5rem 0;
     }
 
     /* ── IMAGE BLOCK ── */
@@ -235,13 +237,14 @@
     /* ── TEXTAREA ── */
     .comments-section {}
     textarea {
-        width: 96%;
+        width: 90%;
+        height: 100%;
         min-height: clamp(100px, 20vw, 140px);
         background: var(--panel2);
-        border: 1px solid var(--border);
-        border-radius: 8px;
+        /* border: 1px solid var(--border); */
+        /* border-radius: 8px; */
         color: var(--text);
-        font-family: 'Exo 2', sans-serif;
+        /* font-family: 'Exo 2', sans-serif; */
         font-size: clamp(.85rem, 2.3vw, .95rem);
         font-weight: 300;
         line-height: 1.7;
@@ -305,9 +308,9 @@
 @media screen and (max-width: 400px) {
     /* Your mobile styles here */
     .card {
-    padding: 2.6rem 1rem 2rem;
-    margin: 1.8rem auto;
-    width: 75vw;
+        padding: var(--servicePaddingMobileLess400);
+        margin: var(--serviceMarginMobileLess400);
+        width: var(--serviceWidthMobileLess400);
     }
     .inputBoxData{
         width: 70vw;
@@ -390,7 +393,7 @@ const destinations = {
         name: "Kepler-186f",
         distance: "582 AL",
         location: "RA 19h 54m 37s / Dec +43° 57′ 18″",
-        arrival: "582 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "582 años",
         image: "/images/destinationBlock/05Kepler-186f.jpeg",
         comments: "The first confirmed Earth-sized planet found in the habitable zone of another star. It orbits Kepler-186, an M-dwarf in the constellation Cygnus. Although it receives less energy than Earth and its atmospheric conditions are unknown, its discovery in 2014 marked a historic milestone in modern astronomy."
     },
@@ -411,7 +414,7 @@ const destinations = {
         name: "Aries — Hamal (α Arietis)",
         distance: "66 AL",
         location: "RA 02h 07m 10s / Dec +23° 27′ 45″",
-        arrival: "66 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "66 años",
         image: "/images/destinationBlock/006Aries.jpeg",
         comments: "Hamal, the brightest star in Aries, is an orange giant roughly 14 times larger than the Sun. The Ram constellation was historically crucial: it marked the vernal equinox in antiquity. Situated between Pisces and Taurus, Aries is modest in brightness but immense in astronomical and mythological significance."
     },
@@ -420,7 +423,7 @@ const destinations = {
         name: "Tauro — Aldebarán (α Tauri)",
         distance: "65 AL",
         location: "RA 04h 35m 55s / Dec +16° 30′ 33″",
-        arrival: "65 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "65 años",
         image: "/images/destinationBlock/007Tauro.jpeg",
         comments: "Aldebaran, the eye of the Bull, is a red giant 44 times the diameter of the Sun and the 14th brightest star in the sky. Taurus also hosts the Pleiades and the Hyades, two of the most famous star clusters. The constellation has guided sailors and farmers for more than five millennia."
     },
@@ -429,7 +432,7 @@ const destinations = {
         name: "Géminis — Pólux (β Geminorum)",
         distance: "34 AL",
         location: "RA 07h 45m 19s / Dec +28° 01′ 35″",
-        arrival: "34 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "34 años",
         image: "/images/destinationBlock/008BGeminis.jpeg",
         comments: "Pollux, the brightest star in Gemini, is an orange giant with a confirmed exoplanet, Pollux b. At 34 light-years away, it is one of the closest giant stars to the Sun. The Twins constellation represents Castor and Pollux, the divine twin heroes of Greek mythology and patron protectors of sailors."
     },
@@ -438,7 +441,7 @@ const destinations = {
         name: "Cáncer — Altarf (β Cancri)",
         distance: "290 AL",
         location: "RA 08h 16m 31s / Dec +09° 11′ 08″",
-        arrival: "290 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "290 años",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Cancer_constellation_map.svg/800px-Cancer_constellation_map.svg.png",
         comments: "Altarf, the brightest star in Cancer, is an orange giant roughly 50 times the diameter of the Sun. The Crab is the faintest zodiac constellation, but it contains Messier 44 (the Beehive Cluster), one of the nearest and most spectacular open clusters visible to the naked eye on clear nights."
     },
@@ -447,7 +450,7 @@ const destinations = {
         name: "Leo — Régulo (α Leonis)",
         distance: "79 AL",
         location: "RA 10h 08m 22s / Dec +11° 58′ 02″",
-        arrival: "79 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "79 años",
         image: "/images/destinationBlock/005Leo.jpeg",
         comments: "Regulus, the heart of the Lion, is a blue-white star spinning so fast its equator bulges noticeably outward. It is the closest first-magnitude star to the ecliptic. The Leo constellation is easily recognised by its sickle-shaped asterism, which resembles a backwards question mark in the night sky."
     },
@@ -456,7 +459,7 @@ const destinations = {
         name: "Virgo — Espica (α Virginis)",
         distance: "250 AL",
         location: "RA 13h 25m 12s / Dec −11° 09′ 41″",
-        arrival: "250 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "250 años",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Virgo_constellation_map.svg/800px-Virgo_constellation_map.svg.png",
         comments: "Spica is actually a spectroscopic binary: two massive stars so close they distort each other's shape through gravity. It is the 15th brightest star in the sky. Virgo, the largest zodiac constellation, also hosts the Virgo Cluster — a massive supercluster containing over 1,300 confirmed galaxies."
     },
@@ -465,7 +468,7 @@ const destinations = {
         name: "Libra — Zubenelgenubi (α Librae)",
         distance: "77 AL",
         location: "RA 14h 50m 41s / Dec −15° 59′ 50″",
-        arrival: "77 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "77 años",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Libra_constellation_map.svg/800px-Libra_constellation_map.svg.png",
         comments: "Zubenelgenubi, Libra's alpha star, is actually a wide double star system visible to the naked eye. Its Arabic name means 'the southern claw of the scorpion', a reminder that Libra was once considered part of Scorpius. It is the only zodiac constellation representing an inanimate object."
     },
@@ -474,7 +477,7 @@ const destinations = {
         name: "Escorpio — Antares (α Scorpii)",
         distance: "550 AL",
         location: "RA 16h 29m 24s / Dec −26° 25′ 55″",
-        arrival: "550 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "550 años",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Scorpius_constellation_map.svg/800px-Scorpius_constellation_map.svg.png",
         comments: "Antares is a colossal red supergiant: if placed where our Sun is, it would engulf Mars. Its name means 'rival of Ares' (Mars), owing to its striking reddish colour. It is one of the most massive stars near us and a strong candidate to explode as a supernova within the next few million years."
     },
@@ -483,7 +486,7 @@ const destinations = {
         name: "Sagitario — Kaus Australis (ε Sagittarii)",
         distance: "143 AL",
         location: "RA 18h 24m 10s / Dec −34° 23′ 05″",
-        arrival: "143 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "143 años",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Sagittarius_constellation_map.svg/800px-Sagittarius_constellation_map.svg.png",
         comments: "Kaus Australis is the brightest star in Sagittarius, a blue-white giant 1,400 times more luminous than the Sun. The Archer constellation points directly toward the Milky Way's galactic centre, where Sagittarius A* — the supermassive black hole of 4 million solar masses — anchors our entire galaxy."
     },
@@ -492,7 +495,7 @@ const destinations = {
         name: "Capricornio — Deneb Algedi (δ Capricorni)",
         distance: "39 AL",
         location: "RA 21h 47m 02s / Dec −16° 07′ 38″",
-        arrival: "39 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "39 años",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Capricornus_constellation_map.svg/800px-Capricornus_constellation_map.svg.png",
         comments: "Deneb Algedi, the brightest star in Capricornus, is an eclipsing binary system whose brightness varies slightly every 24 hours. The Sea Goat — half goat, half fish in Greek mythology — is the smallest zodiac constellation. Its region borders the so-called 'Celestial Sea', rich in aquatic-themed constellations."
     },
@@ -501,7 +504,7 @@ const destinations = {
         name: "Acuario — Sadalsuud (β Aquarii)",
         distance: "610 AL",
         location: "RA 21h 31m 34s / Dec −05° 34′ 16″",
-        arrival: "610 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "610 años",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Aquarius_constellation_map.svg/800px-Aquarius_constellation_map.svg.png",
         comments: "Sadalsuud, the brightest star in Aquarius, is a yellow supergiant 2,200 times more luminous than the Sun. Its Arabic name means 'the luckiest of the lucky'. The Water Bearer constellation is also home to the famous Helix Nebula (NGC 7293), one of the closest and most spectacular planetary nebulae in the sky."
     },
@@ -510,7 +513,7 @@ const destinations = {
         name: "Piscis — Eta Piscium (η Piscium)",
         distance: "294 AL",
         location: "RA 01h 31m 29s / Dec +15° 20′ 45″",
-        arrival: "294 años, 0 meses, 0 días, 0 horas, 0 minutos, 0 segundos",
+        arrival: "294 años",
         image: "/images/destinationBlock/pesicis.jpeg",
         comments: "Eta Piscium is the brightest star in Pisces, a yellow giant roughly 316 times more luminous than the Sun. Pisces is the last constellation of the zodiac and currently hosts the vernal equinox point due to the precession of the equinoxes. In mythology, it represents Aphrodite and Eros transformed into fish."
     }

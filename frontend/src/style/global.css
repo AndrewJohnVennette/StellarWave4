@@ -22,6 +22,9 @@
     --label-pad-y: 6px;
     --panel2:    #111828;
     --letterColor01: rgba(15, 231, 66, 0.8);
+    --serviceWidthMobileLess400: 75vw;
+    --servicePaddingMobileLess400: 2.6rem 1rem 2rem;
+    --serviceMarginMobileLess400: 1.8rem auto;
 }
 body{
     background-color: #000;
@@ -155,6 +158,11 @@ section.servicePage{
         color: rgba(255, 255, 255, .25);
         text-transform: uppercase;
         transition: .5s;
+    }
+    & .info-label{
+        text-decoration: underline;
+        font-weight: 700;
+        letter-spacing: 0.1cm;
     }
     & input:valid ~ label,
     & input:focus ~ label{
