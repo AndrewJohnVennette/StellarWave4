@@ -1,6 +1,6 @@
 ---
 import mainImage01 from '../assets/images/background/01planet-2-blu-starbottle2.webp';
-import mainImage02 from '../assets/images/background/02star-bottle-4-blu2.webp';
+import mainImage02 from '../assets/images/background/02GeminipNew.webp';
 import mainImage03 from '../assets/images/background/03star-bottle-background-21-dicembre-scaled.webp';
 import mainImage04 from '../assets/images/background/04star-bottle-1.webp';
 
@@ -136,7 +136,7 @@ const { services = "/services"} = Astro.props;
     </section>
     <!-- next prev -->
     <section class="arrows">
-        <button id="prev">&#9664;</button>
+        <!-- <button id="prev">&#9664;</button> -->
         <button id="next">&#9654;</button>
     </section>
     <!-- time running -->
@@ -552,7 +552,7 @@ const { services = "/services"} = Astro.props;
 <script>
     // step 1: get DOM
     let nextDom = document.getElementById('next');
-    let prevDom = document.getElementById('prev');
+    // let prevDom = document.getElementById('prev');
 
     let carouselDom = document.querySelector('.carousel');
     let SliderDom = carouselDom.querySelector('.carousel .list');
@@ -568,9 +568,9 @@ const { services = "/services"} = Astro.props;
         showSlider('next');    
     }
 
-    prevDom.onclick = function(){
-        showSlider('prev');    
-    }
+    // prevDom.onclick = function(){
+    //     showSlider('prev');    
+    // }
     let runTimeOut;
     let runNextAuto = setTimeout(() => {
         nextDom.click(); // FIXED: Changed 'next' to 'nextDom'
