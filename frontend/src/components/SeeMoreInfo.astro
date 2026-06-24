@@ -87,16 +87,17 @@ const { titleColum3 } = Astro.props;
                     /* margin: 25px 55px;; */
                     & li{
                         font-size: 1.65rem;
-                        margin: 7px 3px;
+                        margin: 0px 0px 7vh 0px;
                     }
                     & li::marker{
+                        font-size: 1.7rem;
                         font-weight: 900;
                         color: red;
                     }
                 }
                 & p, & ol{
                     line-height: 1.25;
-                    margin: 25px 55px;
+                    margin: 7vh 2vw;
                 }
             }
         }
@@ -108,7 +109,7 @@ const { titleColum3 } = Astro.props;
     }
     .blink-02{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType00 .9s infinite ;
+        animation: blinkType00 1.9s infinite ;
     }
     .blink-03{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
@@ -137,18 +138,12 @@ const { titleColum3 } = Astro.props;
             opacity: 1;
             color: rgb(255, 255, 255);
         }
-        25%{
-            opacity: 1;
-            color: rgb(55, 76, 63);
-        }
+        
         50%{
             opacity: 1;
             color: rgb(9, 236, 77);
         }
-        75%{
-            opacity: 1;
-            color: rgb(55, 76, 63);
-        }
+        
         100%{
             opacity: 0;
             color: rgb(255, 255, 255);
@@ -195,23 +190,24 @@ const { titleColum3 } = Astro.props;
                     }
                     
                     & :global(p){
-            /* color: #fff; */
-            /* margin: 25px 55px; */
-            font-size: .75rem;
-            & a{
-                display: block;
-                text-decoration: none;
-                text-align: center;
-                margin: 7px 0;
-            }
+                    /* color: #fff; */
+                    margin: 5vh 5.3vw;
+                    font-size: .75rem;
+                    & a{
+                        display: block;
+                        text-decoration: none;
+                        text-align: center;
+                        margin: 7px 0;
+                    }
         }
                     & ol{
                         margin: 20px 5px;;
                         & li{
                             font-size: .75rem;
-                            margin: 10px 1px;
+                            margin: 0px 5.3vw 5vh 5.1vw;
                         }
                         & li::marker{
+                            font-size: .9rem;
                             font-weight: 900;
                             color: red;
                         }

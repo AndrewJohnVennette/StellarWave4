@@ -4,6 +4,7 @@ import InfiniteSlider from '../components/InfiniteSlider.astro';
 import StockTicker from '../components/StockTicker.astro';
 import Carousel from '../components/Carousel.astro';
 import SeeMoreInfo from '../components/SeeMoreInfo.astro';
+const { services = "/services"} = Astro.props;
 
 import mainImage04 from '../assets/images/background/04star-bottle-1.webp';
 
@@ -17,7 +18,7 @@ let TopColum3 = "How will your love message actually get launched into space?"
     <SeeMoreInfo titleColum2 = {TopColum2}, titleColum3 = {TopColum3}>
         <p slot="column2">
             In a universe where stars have been holding secrets for millennia, you get to leave a mark that outlives time itself.
-            <a class="blink-02" href="payment.html">To send your Message, just click here.</a>
+            <a class="blink-02" href={services}>To send your Message, just click here.</a>
             This whole section is made for messages born from love: letters, promises, memories, little sighs that mean everything.  Here, every word you send turns into light—traveling through the cosmic void as living proof of what we feel.
             Because love knows no borders… and now it knows no limits either.   This isn’t just a letter.
             Your love message becomes an offering to the cosmos, a declaration that crosses generations, languages, planets—and stays there for all eternity.

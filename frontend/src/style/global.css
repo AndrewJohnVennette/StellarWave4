@@ -283,7 +283,7 @@ section.servicePage{
     }
     .blink-02{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType02 .9s infinite ;
+        animation: blinkType02 1.9s infinite ;
     }
     .blink-03{
         /* animation: blinkType01 1s steps(1, end) infinite ; */

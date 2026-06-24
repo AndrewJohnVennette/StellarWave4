@@ -16,7 +16,93 @@ const Name = "Stellarwaves-5";
 
 <style>
     body{
-        /* background-image: url(../assets/images/background/star-bottle-7B.webp) center / cover no-repeat; */
         background: center / cover no-repeat url('../assets/images/background/msh1552.webp');
     }
+
+    /* ── Locked state shared across all progressive blocks ── */
+    .block-locked {
+        opacity: 0.35;
+        pointer-events: none;
+        filter: blur(1.5px);
+        transition: opacity 0.55s ease, filter 0.55s ease;
+        user-select: none;
+    }
+
+    /* ── Unlocking animation ── */
+    .block-unlocking {
+        animation: blockReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes blockReveal {
+        from {
+            opacity: 0.35;
+            filter: blur(1.5px);
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+    }
 </style>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// services.astro — Progressive unlock orchestrator
+//
+// Flow:
+//   1. On load  → Only UserBlock is interactive; Destination/Payload/PreSend
+//                 are visually locked (blurred, pointer-events:none).
+//   2. UserBlock fires custom event "userReady" when all 3 fields are valid.
+//      → DestinationBlock unlocks.
+//   3. DestinationBlock fires "destinationReady" when a destination is picked.
+//      → PayloadBlock unlocks.
+//   4. PayloadBlock fires "payloadReady" when ≥1 checkbox is checked,
+//      "payloadEmpty" when all are unchecked.
+//      → PreSend unlocks / re-locks accordingly.
+// ═══════════════════════════════════════════════════════════════════════════
+
+function lockBlock(sectionEl) {
+    sectionEl.classList.add('block-locked');
+    sectionEl.classList.remove('block-unlocking');
+}
+
+function unlockBlock(sectionEl) {
+    if (!sectionEl.classList.contains('block-locked')) return; // already unlocked
+    sectionEl.classList.remove('block-locked');
+    sectionEl.classList.add('block-unlocking');
+    // Remove animation class after it finishes so it can replay if needed
+    sectionEl.addEventListener('animationend', () => {
+        sectionEl.classList.remove('block-unlocking');
+    }, { once: true });
+}
+
+// Grab the wrapper <section class="servicePage"> for each component.
+// Each component renders its own <section class="servicePage">; we select
+// them in DOM order so index is predictable.
+const pages = document.querySelectorAll('section.servicePage');
+const [userSection, destSection, payloadSection, presendSection] = pages;
+
+// Lock all blocks except UserBlock on page load
+lockBlock(destSection);
+lockBlock(payloadSection);
+lockBlock(presendSection);
+
+// ── Listen for cross-component events ───────────────────────────────────
+document.addEventListener('userReady', () => {
+    unlockBlock(destSection);
+});
+
+document.addEventListener('destinationReady', () => {
+    unlockBlock(payloadSection);
+});
+
+document.addEventListener('payloadReady', () => {
+    unlockBlock(presendSection);
+});
+
+document.addEventListener('payloadEmpty', () => {
+    lockBlock(presendSection);
+});
+</script>

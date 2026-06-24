@@ -4,6 +4,7 @@ import InfiniteSlider from '../components/InfiniteSlider.astro';
 import StockTicker from '../components/StockTicker.astro';
 import Carousel from '../components/Carousel.astro';
 import SeeMoreInfo from '../components/SeeMoreInfo.astro';
+const { services = "/services"} = Astro.props;
 
 import mainImage04 from '../assets/images/background/04star-bottle-1.webp';
 
@@ -17,7 +18,7 @@ let TopColum3 = "why even send a message into space?"
     <SeeMoreInfo titleColum2 = {TopColum2}, titleColum3 = {TopColum3}>
         <p slot="column2">
             Not only can you blast your message toward infinity, but you can share your whole story way beyond time itself. Drop your letters that cross entire galaxies, fire off words straight to Eternity, turn your thoughts into a literal time capsule drifting forever.  Send a message to an eternal love. A shoutout to someone who’s no longer by your side.  Picture this: a thousand years from now, some random soul stumbles across your words floating among the stars.   Your heart, encoded in light, out there vibing eternally. Just hit send and let it soar.
-            <a class="blink-02" href="payment.html">To send your Message, just click here.</a>
+            <a class="blink-02" href={services}>To send your Message, just click here.</a>
             Publish your own space-time capsule.  This site doesn’t just send words into the void:
             it sends memories, dreams, goodbyes, hopes.  Your message becomes part of a huge collection that captures
             who we are, what we feel, what we wish for.  Share your thoughts with the entire universe.   Drop your heart out there—let it float forever.

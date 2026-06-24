@@ -11,12 +11,10 @@
             <label for="user-fname">First Name:</label>
         </section>
         <section class="inputBoxData">
-            <!-- <input type="text" name="" id="user-lname" required="required"> -->
             <input type="text" id="last-name" required="required">
             <label for="user-lname">Last Name:</label>
         </section>
         <section class="inputBoxData">
-            <!-- <input type="email" name="" id="user-email" required="required"> -->
             <input type="email" id="email" required="required">
             <label for="user-email">Email:</label>
         </section>
@@ -51,7 +49,6 @@
         outline: var(--border-w) solid var(--border);
         outline-offset: 0px;
 
-        /* font-family: 'Playfair Display', Georgia, serif; */
         font-size: .88rem;
         font-weight: 500;
         letter-spacing: .12em;
@@ -215,7 +212,6 @@
 /* ------------------- Media Query section  -------------------*/
 /* 1. Mobile under 400vw */
 @media screen and (max-width: 400px) {
-    /* Your mobile styles here */
     .card {
         padding: var(--servicePaddingMobileLess400);
         margin: var(--serviceMarginMobileLess400);
@@ -244,7 +240,7 @@
 
 <script>
 // ─────────────────────────────────────────────────────────────────
-// UserBlock — Auto-save & session variable
+// UserBlock — Auto-save, session variable & "userReady" event
 //
 // Behaviour:
 //   1. Listens for `input` events on all three fields.
@@ -254,7 +250,11 @@
 //           which inserts the row into the `users` table.
 //        b) Writes the same data to sessionStorage under the key
 //           "cosmoscarrier"  →  { firstName, lastName, email }
+//        c) Fires a custom event "userReady" on document so
+//           services.astro can unlock DestinationBlock.
 //   3. A de-dupe guard prevents re-sending the exact same values.
+//   4. If any field becomes invalid again, fires "userNotReady"
+//      so services.astro can re-lock DestinationBlock if needed.
 // ─────────────────────────────────────────────────────────────────
  
 const _fnInput    = document.getElementById('first-name');
@@ -263,6 +263,7 @@ const _emInput    = document.getElementById('email');
  
 let   _saveTimer  = null;
 let   _savedKey   = '';         // prevents duplicate requests
+let   _wasReady   = false;      // tracks previous ready state
  
 /** True when every field is non-empty and email is well-formed. */
 function _allFilled() {
@@ -272,7 +273,7 @@ function _allFilled() {
     return fn !== '' && ln !== '' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
 }
  
-/** Saves to DB and to sessionStorage. */
+/** Saves to DB and to sessionStorage, then fires userReady. */
 async function _saveUser() {
     const firstName = _fnInput.value.trim();
     const lastName  = _lnInput.value.trim();
@@ -310,13 +311,31 @@ async function _saveUser() {
     } catch (err) {
         console.error('[UserBlock] Network error:', err);
     }
+
+    // ── 3. Fire the unlock event regardless of DB result ──────────
+    // (We don't block UX on network success)
+    if (!_wasReady) {
+        _wasReady = true;
+        document.dispatchEvent(new CustomEvent('userReady'));
+        console.log('[UserBlock] userReady dispatched');
+    }
 }
  
 /** Debounced input handler — waits 600 ms after the user stops typing. */
 function _onInput() {
     clearTimeout(_saveTimer);
-    if (!_allFilled()) return;
-    _saveTimer = setTimeout(_saveUser, 600);
+
+    if (_allFilled()) {
+        _saveTimer = setTimeout(_saveUser, 600);
+    } else {
+        // If user was ready and has now cleared a field, signal not ready
+        if (_wasReady) {
+            _wasReady = false;
+            _savedKey = '';
+            document.dispatchEvent(new CustomEvent('userNotReady'));
+            console.log('[UserBlock] userNotReady dispatched');
+        }
+    }
 }
  
 _fnInput.addEventListener('input', _onInput);

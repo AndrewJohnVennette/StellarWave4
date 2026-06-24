@@ -4,6 +4,7 @@ import InfiniteSlider from '../components/InfiniteSlider.astro';
 import StockTicker from '../components/StockTicker.astro';
 import Carousel from '../components/Carousel.astro';
 import SeeMoreInfo from '../components/SeeMoreInfo.astro';
+const { services = "/services"} = Astro.props;
 
 import mainImage04 from '../assets/images/background/04star-bottle-1.webp';
 
@@ -14,7 +15,7 @@ const Name = "Stellarwaves-5";
         <p slot="column2">
             Sending your message into space is no longer just science fiction—today you can do it from this page using high-precision laser technology.  
             <br>
-            <a class="blink-02" href="payment.html">To send your message, just click here. </a>
+            <a class="blink-02" href={services}>To send your message, just click here. </a>
             <br>
             We've always looked at the sky with curiosity. Today, with a bit of laser technology, you can send your ideas, emotions, or whatever comes to mind straight into the universe. This page gives you the chance to join this cosmic adventure. Your message will shoot out like a beam of light, crossing the sky and floating out there—who knows how far.Humanity learned to gaze at the sky in wonder, always seeking answers among the stars. Today, thanks to laser light, we can send our own words out into the universe. This page invites you to be part of this cosmic journey: your message will cross the atmosphere and travel like a flash into the unknown, leaving a luminous trail in the infinite.
         </p>
@@ -81,7 +82,7 @@ const Name = "Stellarwaves-5";
     }
     .blink-02{
         /* animation: blinkType01 1s steps(1, end) infinite ; */
-        animation: blinkType02 0.9s infinite ;
+        animation: blinkType02 1.9s infinite ;
     }
     .blink-03{
         /* animation: blinkType01 1s steps(1, end) infinite ; */

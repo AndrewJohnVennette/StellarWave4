@@ -21,7 +21,7 @@
                     <option value="scorpio">Scorpio</option>
                     <option value="sagittarius">Sagittarius</option>
                     <option value="capricorn">Capricorn</option>
-                    <option value="aquarium">Aquarium</option>
+                    <option value="aquarius">Aquarium</option>
                     <option value="pisces">Pisces</option>
                     <option value="centauri">Proxima Centauri b</option>
                     <option value="trappist">Trappist-1</option>
@@ -97,15 +97,12 @@
 
 /* ******************************** DESTINATION PANEL ******************************** */
 
-
-
     /* ── SECTION LABEL ── */
     .section-title {
         font-size: .65rem;
         font-weight: 600;
         letter-spacing: .22em;
         text-transform: uppercase;
-        /* color: var(--accent); */
         margin-bottom: .75rem;
     }
 
@@ -194,16 +191,6 @@
             }
         }
     }
-    /* .destination-image-wrap img {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block;
-      transition: opacity .5s ease, transform .6s ease;
-      opacity: 0;
-    } */
-    /* .destination-image-wrap img.visible { 
-        opacity: 1; 
-        transform: scale(1.02); 
-    } */
     .img-placeholder {
         position: absolute; inset: 0;
         display: flex; 
@@ -220,19 +207,6 @@
             text-transform: uppercase; 
         }
     }
-    /* .img-placeholder svg { opacity: .3; }
-    .img-placeholder span { 
-        font-size: .8rem; 
-        letter-spacing: .1em; 
-        text-transform: uppercase; 
-    } */
-
-    /* corner accents */
-    /* .corner { position: absolute; width: 14px; height: 14px; }
-    .corner.tl { top: 8px; left: 8px; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
-    .corner.tr { top: 8px; right: 8px; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); }
-    .corner.bl { bottom: 8px; left: 8px; border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); }
-    .corner.br { bottom: 8px; right: 8px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); } */
 
     /* ── TEXTAREA ── */
     .comments-section {}
@@ -241,10 +215,7 @@
         height: 100%;
         min-height: clamp(100px, 20vw, 140px);
         background: var(--panel2);
-        /* border: 1px solid var(--border); */
-        /* border-radius: 8px; */
         color: var(--text);
-        /* font-family: 'Exo 2', sans-serif; */
         font-size: clamp(.85rem, 2.3vw, .95rem);
         font-weight: 300;
         line-height: 1.7;
@@ -261,52 +232,22 @@
             font-style: italic; 
         }
     }
-    /* textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(61,142,240,.15);
-    } */
-    /* textarea::placeholder { 
-        color: var(--text-dim); 
-        font-style: italic; 
-    } */
 
     /* ── SCAN LINE EFFECT ── */
     .card::after {
-      /* content: '';
-      display: block;
-      position: absolute;
-      inset: 0;
-      border-radius: 12px;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 3px,
-        rgba(0,0,0,.07) 3px,
-        rgba(0,0,0,.07) 4px
-      );
-      pointer-events: none; */
-    }
-    .card { 
-        /* position: relative; 
-        overflow: hidden;  */
+      /* Intentionally empty — reserved for future scan-line overlay */
     }
 
     /* ── PULSE ANIMATION for new data ── */
     @keyframes dataPulse {
-      0%   { 
-        /* background-color: rgba(61,142,240,.18);  */
+      0%   { }
+      100% { }
     }
-      100% { 
-        /* background-color: transparent;  */
-    }
-    }
-    .info-value.pulse { 
-        /* animation: dataPulse .6s ease-out;  */
-    }
+    .info-value.pulse { }
+
 /* ------------------- Media Query section  -------------------*/
 /* 1. Mobile under 400vw */
 @media screen and (max-width: 400px) {
-    /* Your mobile styles here */
     .card {
         padding: var(--servicePaddingMobileLess400);
         margin: var(--serviceMarginMobileLess400);
@@ -339,14 +280,9 @@
 </style>
 
 <script>
-    // ─────────────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
 // DESTINATIONS — Stars, Planets & Zodiac Constellations
-//
-// distance        : in light-years (AL = año luz)
-// location        : RA / Dec (J2000) of the primary star or constellation centre
-// arrival : exact time a photon takes to reach the target from Earth
-// image           : public-domain Wikimedia Commons image (no login required)
-// comments        : ~70-word description (in Spanish, matching the original style)
+// (destination data unchanged from original)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const destinations = {
@@ -394,7 +330,7 @@ const destinations = {
         distance: "582 AL",
         location: "RA 19h 54m 37s / Dec +43° 57′ 18″",
         arrival: "582 años",
-        image: "/images/destinationBlock/05Kepler-186f.jpeg",
+        image: "/images/destinationBlock/05Kepler-186f.jpg",
         comments: "The first confirmed Earth-sized planet found in the habitable zone of another star. It orbits Kepler-186, an M-dwarf in the constellation Cygnus. Although it receives less energy than Earth and its atmospheric conditions are unknown, its discovery in 2014 marked a historic milestone in modern astronomy."
     },
 
@@ -408,7 +344,6 @@ const destinations = {
     },
 
     // ── ZODIAC ────────────────────────────────────────────
-    
 
     aries: {
         name: "Aries — Hamal (α Arietis)",
@@ -460,7 +395,7 @@ const destinations = {
         distance: "250 AL",
         location: "RA 13h 25m 12s / Dec −11° 09′ 41″",
         arrival: "250 años",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Virgo_constellation_map.svg/800px-Virgo_constellation_map.svg.png",
+        image: "/images/destinationBlock/Virgo.webp",
         comments: "Spica is actually a spectroscopic binary: two massive stars so close they distort each other's shape through gravity. It is the 15th brightest star in the sky. Virgo, the largest zodiac constellation, also hosts the Virgo Cluster — a massive supercluster containing over 1,300 confirmed galaxies."
     },
 
@@ -469,7 +404,7 @@ const destinations = {
         distance: "77 AL",
         location: "RA 14h 50m 41s / Dec −15° 59′ 50″",
         arrival: "77 años",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Libra_constellation_map.svg/800px-Libra_constellation_map.svg.png",
+        image: "/images/destinationBlock/Libra.webp",
         comments: "Zubenelgenubi, Libra's alpha star, is actually a wide double star system visible to the naked eye. Its Arabic name means 'the southern claw of the scorpion', a reminder that Libra was once considered part of Scorpius. It is the only zodiac constellation representing an inanimate object."
     },
 
@@ -478,7 +413,7 @@ const destinations = {
         distance: "550 AL",
         location: "RA 16h 29m 24s / Dec −26° 25′ 55″",
         arrival: "550 años",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Scorpius_constellation_map.svg/800px-Scorpius_constellation_map.svg.png",
+        image: "/images/destinationBlock/Scorpio.webp",
         comments: "Antares is a colossal red supergiant: if placed where our Sun is, it would engulf Mars. Its name means 'rival of Ares' (Mars), owing to its striking reddish colour. It is one of the most massive stars near us and a strong candidate to explode as a supernova within the next few million years."
     },
 
@@ -487,7 +422,7 @@ const destinations = {
         distance: "143 AL",
         location: "RA 18h 24m 10s / Dec −34° 23′ 05″",
         arrival: "143 años",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Sagittarius_constellation_map.svg/800px-Sagittarius_constellation_map.svg.png",
+        image: "/images/destinationBlock/Sagittarius.webp",
         comments: "Kaus Australis is the brightest star in Sagittarius, a blue-white giant 1,400 times more luminous than the Sun. The Archer constellation points directly toward the Milky Way's galactic centre, where Sagittarius A* — the supermassive black hole of 4 million solar masses — anchors our entire galaxy."
     },
 
@@ -496,7 +431,7 @@ const destinations = {
         distance: "39 AL",
         location: "RA 21h 47m 02s / Dec −16° 07′ 38″",
         arrival: "39 años",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Capricornus_constellation_map.svg/800px-Capricornus_constellation_map.svg.png",
+        image: "/images/destinationBlock/Capricorn.webp",
         comments: "Deneb Algedi, the brightest star in Capricornus, is an eclipsing binary system whose brightness varies slightly every 24 hours. The Sea Goat — half goat, half fish in Greek mythology — is the smallest zodiac constellation. Its region borders the so-called 'Celestial Sea', rich in aquatic-themed constellations."
     },
 
@@ -505,7 +440,7 @@ const destinations = {
         distance: "610 AL",
         location: "RA 21h 31m 34s / Dec −05° 34′ 16″",
         arrival: "610 años",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Aquarius_constellation_map.svg/800px-Aquarius_constellation_map.svg.png",
+        image: "/images/destinationBlock/Aquarium.webp",
         comments: "Sadalsuud, the brightest star in Aquarius, is a yellow supergiant 2,200 times more luminous than the Sun. Its Arabic name means 'the luckiest of the lucky'. The Water Bearer constellation is also home to the famous Helix Nebula (NGC 7293), one of the closest and most spectacular planetary nebulae in the sky."
     },
 
@@ -514,48 +449,11 @@ const destinations = {
         distance: "294 AL",
         location: "RA 01h 31m 29s / Dec +15° 20′ 45″",
         arrival: "294 años",
-        image: "/images/destinationBlock/pesicis.jpeg",
+        image: "/images/destinationBlock/Piscis.webp",
         comments: "Eta Piscium is the brightest star in Pisces, a yellow giant roughly 316 times more luminous than the Sun. Pisces is the last constellation of the zodiac and currently hosts the vernal equinox point due to the precession of the equinoxes. In mythology, it represents Aphrodite and Eros transformed into fish."
     }
 
 };
-
-// TODO: I don't need this. Mark for deletion
-// ─────────────────────────────────────────────────────────────────────────────
-// LIGHT-TRAVEL TIME COMPUTATION (for reference / UI use)
-// Given a distance in light-years, this helper returns the exact breakdown.
-// ─────────────────────────────────────────────────────────────────────────────
-
-/**
- * Converts a distance in light-years to a human-readable travel time
- * for a photon (moving at c).
- *
- * @param {number} ly - Distance in light-years
- * @returns {string} Formatted string: "X años, Y meses, Z días, H horas, M minutos, S segundos"
- */
-function arrival(ly) {
-    const SECONDS_PER_YEAR  = 365.25 * 24 * 3600;      // Julian year
-    const SECONDS_PER_MONTH = SECONDS_PER_YEAR / 12;
-    const SECONDS_PER_DAY   = 24 * 3600;
-    const SECONDS_PER_HOUR  = 3600;
-    const SECONDS_PER_MIN   = 60;
-
-    let remaining = ly * SECONDS_PER_YEAR;
-
-    const years   = Math.floor(remaining / SECONDS_PER_YEAR);   remaining %= SECONDS_PER_YEAR;
-    const months  = Math.floor(remaining / SECONDS_PER_MONTH);  remaining %= SECONDS_PER_MONTH;
-    const days    = Math.floor(remaining / SECONDS_PER_DAY);    remaining %= SECONDS_PER_DAY;
-    const hours   = Math.floor(remaining / SECONDS_PER_HOUR);   remaining %= SECONDS_PER_HOUR;
-    const minutes = Math.floor(remaining / SECONDS_PER_MIN);    remaining %= SECONDS_PER_MIN;
-    const seconds = Math.floor(remaining);
-
-    return `${years} años, ${months} meses, ${days} días, ${hours} horas, ${minutes} minutos, ${seconds} segundos`;
-}
-
-// Example:
-// console.log(arrival(4.24));
-// → "4 años, 2 meses, 28 días, 19 horas, 33 minutos, 36 segundos"
-
 
     const select = document.getElementById('destinationSelect');
     const fields = {
@@ -564,9 +462,11 @@ function arrival(ly) {
         location: document.getElementById('infoLocation'),
         arrival:  document.getElementById('infoArrival')
     };
-    const destImage   = document.getElementById('destImage');
+    const destImage      = document.getElementById('destImage');
     const imgPlaceholder = document.getElementById('imgPlaceholder');
-    const comments    = document.getElementById('destComments');
+    const comments       = document.getElementById('destComments');
+
+    let _destinationPicked = false;
 
     function pulse(el) {
         el.classList.remove('pulse');
@@ -576,36 +476,52 @@ function arrival(ly) {
 
     select.addEventListener('change', () => {
         const key = select.value;
+
         if (!key) {
-        Object.values(fields).forEach(f => { f.textContent = '—'; f.classList.remove('populated'); });
-        destImage.src = '';
-        destImage.classList.remove('visible');
-        imgPlaceholder.style.display = 'flex';
-        comments.value = '';
-        comments.placeholder = 'Select a destination to load mission notes…';
-        comments.removeAttribute('style');
-        return;
+            Object.values(fields).forEach(f => { f.textContent = '—'; f.classList.remove('populated'); });
+            destImage.src = '';
+            destImage.classList.remove('visible');
+            imgPlaceholder.style.display = 'flex';
+            comments.value = '';
+            comments.placeholder = 'Select a destination to load mission notes…';
+            comments.removeAttribute('style');
+
+            // Fire "not ready" if user clears the selection
+            if (_destinationPicked) {
+                _destinationPicked = false;
+                document.dispatchEvent(new CustomEvent('destinationNotReady'));
+                console.log('[DestinationBlock] destinationNotReady dispatched');
+            }
+            return;
         }
+
         const d = destinations[key];
 
         // Fill info
         const map = { name: d.name, distance: d.distance, location: d.location, arrival: d.arrival };
         Object.entries(map).forEach(([k, v]) => {
-        fields[k].textContent = v;
-        fields[k].classList.add('populated');
-        pulse(fields[k]);
+            fields[k].textContent = v;
+            fields[k].classList.add('populated');
+            pulse(fields[k]);
         });
 
         // Image
         imgPlaceholder.style.display = 'none';
         destImage.classList.remove('visible');
         destImage.src = d.image;
-        destImage.onload = () => destImage.classList.add('visible');
+        destImage.onload  = () => destImage.classList.add('visible');
         destImage.onerror = () => { imgPlaceholder.style.display = 'flex'; };
 
         // Comments
         comments.removeAttribute('readonly');
         comments.value = d.comments;
         comments.style.color = 'var(--text)';
+
+        // ── Fire destinationReady ─────────────────────────────────
+        if (!_destinationPicked) {
+            _destinationPicked = true;
+            document.dispatchEvent(new CustomEvent('destinationReady'));
+            console.log('[DestinationBlock] destinationReady dispatched');
+        }
     });
 </script>
