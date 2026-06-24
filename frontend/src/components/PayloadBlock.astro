@@ -26,7 +26,7 @@
             </article>
         </section>
         <section class="center">
-            <label class="checkBoxLabel" for="Video1">Video: &ensp; <span id="payloadVideoPrice">$15.55</span></label>
+            <label class="checkBoxLabel" for="Video1">Video: &ensp; <span id="payloadTextPrice">$15.55</span></label>
             <input type="checkbox" name="" id="Video1" />
             <article class="select-outer">
                 <h1>HELLO</h1>
@@ -59,7 +59,7 @@
     }
 
     :root{
-        --test:120px;
+        --test:120px;/*TODO:Change the name of the var so something more meaningful. Calculate the correct value*/
     }
     #card-payload{
         display: grid;
@@ -89,6 +89,7 @@
         position: relative;
         width: var(--test);
         height: 40px;
+        /* -webkit-appearance: none; */
         appearance: none;
         background: linear-gradient(0deg, #333, #000);
         outline: none;
@@ -147,6 +148,7 @@
     /* ------------------- Media Query section  -------------------*/
 /* 1. Mobile under 400vw */
 @media screen and (max-width: 400px) {
+    /* Your mobile styles here */
     #card-payload{
         padding: var(--servicePaddingMobileLess400);
         margin: var(--serviceMarginMobileLess400);
@@ -157,56 +159,25 @@
         &::before{
             height: 20px;
         }
+
     }
+
+
 }
 
 /* 2. Tables between 800px and 1028px (inclusive) */
 @media screen and (min-width: 800px) and (max-width: 1028px) {
     /* Your tablet/mid-size styles here */
+
 }
 
 /* 3. Everything above 1028px */
 @media screen and (min-width: 1028.01px) { 
     /* Your desktop/large screen styles here */
+
 }
 </style>
 
 <script>
-// ─────────────────────────────────────────────────────────────────
-// PayloadBlock — Checkbox watcher
-//
-// Behaviour:
-//   • Watches the four payload checkboxes (Text, Picture, Audio, Video).
-//   • When ≥ 1 is checked  → fires "payloadReady"  on document.
-//   • When all are unchecked → fires "payloadEmpty" on document.
-//   • Fires each event only on state *changes* to avoid redundant
-//     dispatches.
-// ─────────────────────────────────────────────────────────────────
 
-const _checkboxIds = ['Text1', 'Picture1', 'Audio1', 'Video1'];
-const _checkboxes  = _checkboxIds.map(id => document.getElementById(id));
-
-let _wasPayloadReady = false;
-
-function _anyChecked() {
-    return _checkboxes.some(cb => cb && cb.checked);
-}
-
-function _onCheckboxChange() {
-    const ready = _anyChecked();
-
-    if (ready && !_wasPayloadReady) {
-        _wasPayloadReady = true;
-        document.dispatchEvent(new CustomEvent('payloadReady'));
-        console.log('[PayloadBlock] payloadReady dispatched');
-    } else if (!ready && _wasPayloadReady) {
-        _wasPayloadReady = false;
-        document.dispatchEvent(new CustomEvent('payloadEmpty'));
-        console.log('[PayloadBlock] payloadEmpty dispatched');
-    }
-}
-
-_checkboxes.forEach(cb => {
-    if (cb) cb.addEventListener('change', _onCheckboxChange);
-});
 </script>

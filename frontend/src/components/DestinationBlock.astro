@@ -97,12 +97,15 @@
 
 /* ******************************** DESTINATION PANEL ******************************** */
 
+
+
     /* ── SECTION LABEL ── */
     .section-title {
         font-size: .65rem;
         font-weight: 600;
         letter-spacing: .22em;
         text-transform: uppercase;
+        /* color: var(--accent); */
         margin-bottom: .75rem;
     }
 
@@ -191,6 +194,16 @@
             }
         }
     }
+    /* .destination-image-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      transition: opacity .5s ease, transform .6s ease;
+      opacity: 0;
+    } */
+    /* .destination-image-wrap img.visible { 
+        opacity: 1; 
+        transform: scale(1.02); 
+    } */
     .img-placeholder {
         position: absolute; inset: 0;
         display: flex; 
@@ -207,6 +220,19 @@
             text-transform: uppercase; 
         }
     }
+    /* .img-placeholder svg { opacity: .3; }
+    .img-placeholder span { 
+        font-size: .8rem; 
+        letter-spacing: .1em; 
+        text-transform: uppercase; 
+    } */
+
+    /* corner accents */
+    /* .corner { position: absolute; width: 14px; height: 14px; }
+    .corner.tl { top: 8px; left: 8px; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+    .corner.tr { top: 8px; right: 8px; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+    .corner.bl { bottom: 8px; left: 8px; border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+    .corner.br { bottom: 8px; right: 8px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); } */
 
     /* ── TEXTAREA ── */
     .comments-section {}
@@ -215,7 +241,10 @@
         height: 100%;
         min-height: clamp(100px, 20vw, 140px);
         background: var(--panel2);
+        /* border: 1px solid var(--border); */
+        /* border-radius: 8px; */
         color: var(--text);
+        /* font-family: 'Exo 2', sans-serif; */
         font-size: clamp(.85rem, 2.3vw, .95rem);
         font-weight: 300;
         line-height: 1.7;
@@ -232,22 +261,52 @@
             font-style: italic; 
         }
     }
+    /* textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(61,142,240,.15);
+    } */
+    /* textarea::placeholder { 
+        color: var(--text-dim); 
+        font-style: italic; 
+    } */
 
     /* ── SCAN LINE EFFECT ── */
     .card::after {
-      /* Intentionally empty — reserved for future scan-line overlay */
+      /* content: '';
+      display: block;
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,.07) 3px,
+        rgba(0,0,0,.07) 4px
+      );
+      pointer-events: none; */
+    }
+    .card { 
+        /* position: relative; 
+        overflow: hidden;  */
     }
 
     /* ── PULSE ANIMATION for new data ── */
     @keyframes dataPulse {
-      0%   { }
-      100% { }
+      0%   { 
+        /* background-color: rgba(61,142,240,.18);  */
     }
-    .info-value.pulse { }
-
+      100% { 
+        /* background-color: transparent;  */
+    }
+    }
+    .info-value.pulse { 
+        /* animation: dataPulse .6s ease-out;  */
+    }
 /* ------------------- Media Query section  -------------------*/
 /* 1. Mobile under 400vw */
 @media screen and (max-width: 400px) {
+    /* Your mobile styles here */
     .card {
         padding: var(--servicePaddingMobileLess400);
         margin: var(--serviceMarginMobileLess400);
@@ -280,9 +339,14 @@
 </style>
 
 <script>
-// ─────────────────────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────────
 // DESTINATIONS — Stars, Planets & Zodiac Constellations
-// (destination data unchanged from original)
+//
+// distance        : in light-years (AL = año luz)
+// location        : RA / Dec (J2000) of the primary star or constellation centre
+// arrival : exact time a photon takes to reach the target from Earth
+// image           : public-domain Wikimedia Commons image (no login required)
+// comments        : ~70-word description (in Spanish, matching the original style)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const destinations = {
@@ -344,6 +408,7 @@ const destinations = {
     },
 
     // ── ZODIAC ────────────────────────────────────────────
+    
 
     aries: {
         name: "Aries — Hamal (α Arietis)",
@@ -455,6 +520,43 @@ const destinations = {
 
 };
 
+// TODO: I don't need this. Mark for deletion
+// ─────────────────────────────────────────────────────────────────────────────
+// LIGHT-TRAVEL TIME COMPUTATION (for reference / UI use)
+// Given a distance in light-years, this helper returns the exact breakdown.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Converts a distance in light-years to a human-readable travel time
+ * for a photon (moving at c).
+ *
+ * @param {number} ly - Distance in light-years
+ * @returns {string} Formatted string: "X años, Y meses, Z días, H horas, M minutos, S segundos"
+ */
+function arrival(ly) {
+    const SECONDS_PER_YEAR  = 365.25 * 24 * 3600;      // Julian year
+    const SECONDS_PER_MONTH = SECONDS_PER_YEAR / 12;
+    const SECONDS_PER_DAY   = 24 * 3600;
+    const SECONDS_PER_HOUR  = 3600;
+    const SECONDS_PER_MIN   = 60;
+
+    let remaining = ly * SECONDS_PER_YEAR;
+
+    const years   = Math.floor(remaining / SECONDS_PER_YEAR);   remaining %= SECONDS_PER_YEAR;
+    const months  = Math.floor(remaining / SECONDS_PER_MONTH);  remaining %= SECONDS_PER_MONTH;
+    const days    = Math.floor(remaining / SECONDS_PER_DAY);    remaining %= SECONDS_PER_DAY;
+    const hours   = Math.floor(remaining / SECONDS_PER_HOUR);   remaining %= SECONDS_PER_HOUR;
+    const minutes = Math.floor(remaining / SECONDS_PER_MIN);    remaining %= SECONDS_PER_MIN;
+    const seconds = Math.floor(remaining);
+
+    return `${years} años, ${months} meses, ${days} días, ${hours} horas, ${minutes} minutos, ${seconds} segundos`;
+}
+
+// Example:
+// console.log(arrival(4.24));
+// → "4 años, 2 meses, 28 días, 19 horas, 33 minutos, 36 segundos"
+
+
     const select = document.getElementById('destinationSelect');
     const fields = {
         name:     document.getElementById('infoName'),
@@ -462,11 +564,9 @@ const destinations = {
         location: document.getElementById('infoLocation'),
         arrival:  document.getElementById('infoArrival')
     };
-    const destImage      = document.getElementById('destImage');
+    const destImage   = document.getElementById('destImage');
     const imgPlaceholder = document.getElementById('imgPlaceholder');
-    const comments       = document.getElementById('destComments');
-
-    let _destinationPicked = false;
+    const comments    = document.getElementById('destComments');
 
     function pulse(el) {
         el.classList.remove('pulse');
@@ -476,52 +576,36 @@ const destinations = {
 
     select.addEventListener('change', () => {
         const key = select.value;
-
         if (!key) {
-            Object.values(fields).forEach(f => { f.textContent = '—'; f.classList.remove('populated'); });
-            destImage.src = '';
-            destImage.classList.remove('visible');
-            imgPlaceholder.style.display = 'flex';
-            comments.value = '';
-            comments.placeholder = 'Select a destination to load mission notes…';
-            comments.removeAttribute('style');
-
-            // Fire "not ready" if user clears the selection
-            if (_destinationPicked) {
-                _destinationPicked = false;
-                document.dispatchEvent(new CustomEvent('destinationNotReady'));
-                console.log('[DestinationBlock] destinationNotReady dispatched');
-            }
-            return;
+        Object.values(fields).forEach(f => { f.textContent = '—'; f.classList.remove('populated'); });
+        destImage.src = '';
+        destImage.classList.remove('visible');
+        imgPlaceholder.style.display = 'flex';
+        comments.value = '';
+        comments.placeholder = 'Select a destination to load mission notes…';
+        comments.removeAttribute('style');
+        return;
         }
-
         const d = destinations[key];
 
         // Fill info
         const map = { name: d.name, distance: d.distance, location: d.location, arrival: d.arrival };
         Object.entries(map).forEach(([k, v]) => {
-            fields[k].textContent = v;
-            fields[k].classList.add('populated');
-            pulse(fields[k]);
+        fields[k].textContent = v;
+        fields[k].classList.add('populated');
+        pulse(fields[k]);
         });
 
         // Image
         imgPlaceholder.style.display = 'none';
         destImage.classList.remove('visible');
         destImage.src = d.image;
-        destImage.onload  = () => destImage.classList.add('visible');
+        destImage.onload = () => destImage.classList.add('visible');
         destImage.onerror = () => { imgPlaceholder.style.display = 'flex'; };
 
         // Comments
         comments.removeAttribute('readonly');
         comments.value = d.comments;
         comments.style.color = 'var(--text)';
-
-        // ── Fire destinationReady ─────────────────────────────────
-        if (!_destinationPicked) {
-            _destinationPicked = true;
-            document.dispatchEvent(new CustomEvent('destinationReady'));
-            console.log('[DestinationBlock] destinationReady dispatched');
-        }
     });
 </script>

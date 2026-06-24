@@ -14,95 +14,190 @@ const Name = "Stellarwaves-5";
     <br><br><br><br><br>
 </Layout>
 
-<style>
-    body{
+<!--
+    IMPORTANT: must be `is:global` because Astro scopes <style> to the current
+    component only. These classes are applied to elements that live inside child
+    components (UserBlock, DestinationBlock, etc.), so they MUST be global to
+    reach them.
+-->
+<style is:global>
+    body {
         background: center / cover no-repeat url('../assets/images/background/msh1552.webp');
     }
 
-    /* ── Locked state shared across all progressive blocks ── */
-    .block-locked {
-        opacity: 0.35;
+    /* ── Locked sections: dimmed, blurred, not interactive ── */
+    section.servicePage.sw-locked {
+        opacity: 0.3;
         pointer-events: none;
-        filter: blur(1.5px);
-        transition: opacity 0.55s ease, filter 0.55s ease;
+        filter: blur(2px);
+        transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
+        transform: scale(0.99);
         user-select: none;
     }
 
-    /* ── Unlocking animation ── */
-    .block-unlocking {
-        animation: blockReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-
-    @keyframes blockReveal {
-        from {
-            opacity: 0.35;
-            filter: blur(1.5px);
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            filter: blur(0);
-            transform: translateY(0);
-        }
+    /* ── Unlocked sections: fully visible and interactive ── */
+    section.servicePage.sw-unlocked {
+        opacity: 1;
+        pointer-events: all;
+        filter: none;
+        transform: scale(1);
+        transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                    filter 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     }
 </style>
 
 <script>
-// ═══════════════════════════════════════════════════════════════════════════
+// =============================================================================
 // services.astro — Progressive unlock orchestrator
 //
-// Flow:
-//   1. On load  → Only UserBlock is interactive; Destination/Payload/PreSend
-//                 are visually locked (blurred, pointer-events:none).
-//   2. UserBlock fires custom event "userReady" when all 3 fields are valid.
-//      → DestinationBlock unlocks.
-//   3. DestinationBlock fires "destinationReady" when a destination is picked.
-//      → PayloadBlock unlocks.
-//   4. PayloadBlock fires "payloadReady" when ≥1 checkbox is checked,
-//      "payloadEmpty" when all are unchecked.
-//      → PreSend unlocks / re-locks accordingly.
-// ═══════════════════════════════════════════════════════════════════════════
+// Strategy: All unlock logic lives HERE, in a single script. We query the DOM
+// directly for elements from child components. No custom events needed between
+// components — this script owns the entire state machine.
+//
+// This avoids two Astro pitfalls:
+//   1. <style> scoping — fixed by `is:global` above.
+//   2. Script execution order — child component <script> tags may run AFTER
+//      this one, so we cannot rely on events dispatched from them at startup.
+//
+// Unlock chain:
+//   LOAD        → UserBlock active, all others locked
+//   UserBlock   → all 3 fields filled (first, last, valid email) → unlock DestinationBlock
+//   Destination → #destinationSelect has a non-empty value       → unlock PayloadBlock
+//   Payload     → at least 1 checkbox checked                    → unlock PreSend
+//                 all checkboxes unchecked again                 → re-lock PreSend
+// =============================================================================
 
-function lockBlock(sectionEl) {
-    sectionEl.classList.add('block-locked');
-    sectionEl.classList.remove('block-unlocking');
+// --- Grab the four <section class="servicePage"> wrappers in DOM order -------
+// Each Astro component renders exactly one <section class="servicePage">.
+// We rely on document order matching import order in services.astro.
+
+function getSections() {
+    return Array.from(document.querySelectorAll('section.servicePage'));
 }
 
-function unlockBlock(sectionEl) {
-    if (!sectionEl.classList.contains('block-locked')) return; // already unlocked
-    sectionEl.classList.remove('block-locked');
-    sectionEl.classList.add('block-unlocking');
-    // Remove animation class after it finishes so it can replay if needed
-    sectionEl.addEventListener('animationend', () => {
-        sectionEl.classList.remove('block-unlocking');
-    }, { once: true });
+function lock(el) {
+    el.classList.remove('sw-unlocked');
+    el.classList.add('sw-locked');
 }
 
-// Grab the wrapper <section class="servicePage"> for each component.
-// Each component renders its own <section class="servicePage">; we select
-// them in DOM order so index is predictable.
-const pages = document.querySelectorAll('section.servicePage');
-const [userSection, destSection, payloadSection, presendSection] = pages;
+function unlock(el) {
+    el.classList.remove('sw-locked');
+    el.classList.add('sw-unlocked');
+}
 
-// Lock all blocks except UserBlock on page load
-lockBlock(destSection);
-lockBlock(payloadSection);
-lockBlock(presendSection);
+// --- Initialise on DOMContentLoaded so all child HTML is in the DOM ----------
+document.addEventListener('DOMContentLoaded', () => {
 
-// ── Listen for cross-component events ───────────────────────────────────
-document.addEventListener('userReady', () => {
-    unlockBlock(destSection);
-});
+    const sections = getSections();
+    // sections[0] = UserBlock, [1] = DestinationBlock, [2] = PayloadBlock, [3] = PreSend
+    const [userSec, destSec, payloadSec, presendSec] = sections;
 
-document.addEventListener('destinationReady', () => {
-    unlockBlock(payloadSection);
-});
+    // Apply initial states
+    unlock(userSec);   // UserBlock is always active from the start
+    lock(destSec);
+    lock(payloadSec);
+    lock(presendSec);
 
-document.addEventListener('payloadReady', () => {
-    unlockBlock(presendSection);
-});
+    // ── Grab all interactive elements from child components ──────────────────
 
-document.addEventListener('payloadEmpty', () => {
-    lockBlock(presendSection);
+    // UserBlock fields
+    const fnInput = document.getElementById('first-name');
+    const lnInput = document.getElementById('last-name');
+    const emInput = document.getElementById('email');
+
+    // DestinationBlock select
+    const destSelect = document.getElementById('destinationSelect');
+
+    // PayloadBlock checkboxes
+    const payloadCheckboxes = [
+        document.getElementById('Text1'),
+        document.getElementById('Picture1'),
+        document.getElementById('Audio1'),
+        document.getElementById('Video1'),
+    ].filter(Boolean); // filter out nulls if any id mismatches
+
+    // ── State ────────────────────────────────────────────────────────────────
+    let userUnlocked    = false;
+    let destUnlocked    = false;
+
+    // ── Helper: is the email format valid? ───────────────────────────────────
+    function validEmail(val) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+    }
+
+    // ── Helper: are all user fields filled? ──────────────────────────────────
+    function userReady() {
+        return fnInput.value.trim() !== ''
+            && lnInput.value.trim() !== ''
+            && validEmail(emInput.value);
+    }
+
+    // ── Helper: is a destination selected? ───────────────────────────────────
+    function destinationReady() {
+        return destSelect && destSelect.value !== '';
+    }
+
+    // ── Helper: is at least one payload checkbox checked? ────────────────────
+    function payloadReady() {
+        return payloadCheckboxes.some(cb => cb.checked);
+    }
+
+    // ── Step 1 → 2: Watch user fields ────────────────────────────────────────
+    function onUserInput() {
+        if (userReady()) {
+            if (!userUnlocked) {
+                userUnlocked = true;
+                unlock(destSec);
+            }
+        } else {
+            // If user clears fields after unlocking, re-lock downstream
+            if (userUnlocked) {
+                userUnlocked = false;
+                destUnlocked = false;
+                lock(destSec);
+                lock(payloadSec);
+                lock(presendSec);
+                // Reset destination select to force re-evaluation
+                if (destSelect) destSelect.value = '';
+            }
+        }
+    }
+
+    if (fnInput) fnInput.addEventListener('input', onUserInput);
+    if (lnInput) lnInput.addEventListener('input', onUserInput);
+    if (emInput) emInput.addEventListener('input', onUserInput);
+
+    // ── Step 2 → 3: Watch destination select ─────────────────────────────────
+    function onDestChange() {
+        if (destinationReady()) {
+            if (!destUnlocked) {
+                destUnlocked = true;
+                unlock(payloadSec);
+            }
+        } else {
+            if (destUnlocked) {
+                destUnlocked = false;
+                lock(payloadSec);
+                lock(presendSec);
+            }
+        }
+    }
+
+    if (destSelect) destSelect.addEventListener('change', onDestChange);
+
+    // ── Step 3 → 4: Watch payload checkboxes ─────────────────────────────────
+    function onPayloadChange() {
+        if (payloadReady()) {
+            unlock(presendSec);
+        } else {
+            lock(presendSec);
+        }
+    }
+
+    payloadCheckboxes.forEach(cb => cb.addEventListener('change', onPayloadChange));
+
+    // ── Debug: log section count to catch DOM order issues ───────────────────
+    console.log('[services] sections found:', sections.length, sections.map(s => s.querySelector('article')?.id ?? '?'));
 });
 </script>

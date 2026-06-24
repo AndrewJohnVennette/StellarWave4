@@ -6,7 +6,7 @@ const { paymente = "/payment"} = Astro.props;
     <article class="card unlocked" id="check-list">
         <label>Check List</label>
         <section class="inputBoxData">
-            <a href={paymente} class="proceed-to-payment" id="proceed-to-payment">
+            <a href={paymente}class="proceed-to-payment" id="proceed-to-payment">
                 <span id="lng-selectedOp-Payment">
                     Proceed <br> to <br> Payment 
                 </span>
@@ -50,9 +50,12 @@ const { paymente = "/payment"} = Astro.props;
         }
     }
 
+
+
     /* ------------------- Media Query section  -------------------*/
 /* 1. Mobile under 400vw */
 @media screen and (max-width: 400px) {
+    /* Your mobile styles here */
     #check-list{
         padding: var(--servicePaddingMobileLess400);
         margin: var(--serviceMarginMobileLess400);
@@ -63,21 +66,21 @@ const { paymente = "/payment"} = Astro.props;
         &::before{
             height: 20px;
         }
+
     }
+
+
 }
 
 /* 2. Tables between 800px and 1028px (inclusive) */
 @media screen and (min-width: 800px) and (max-width: 1028px) {
     /* Your tablet/mid-size styles here */
+
 }
 
 /* 3. Everything above 1028px */
 @media screen and (min-width: 1028.01px) { 
     /* Your desktop/large screen styles here */
+
 }
 </style>
-
-<!-- No script needed: the locked/unlocked state is fully controlled
-     by the .block-locked class applied by services.astro's orchestrator.
-     When the section is locked, pointer-events:none prevents clicking the
-     payment link. When unlocked, it is fully interactive. -->
