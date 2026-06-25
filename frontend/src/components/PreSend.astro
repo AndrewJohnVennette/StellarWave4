@@ -6,16 +6,17 @@ const { paymente = "/payment"} = Astro.props;
     <article class="card unlocked" id="check-list">
         <label>Check List</label>
         <section class="inputBoxData">
-            <a href={paymente}class="proceed-to-payment" id="proceed-to-payment">
+            <a href={paymente} class="proceed-to-payment" id="proceed-to-payment">
                 <span id="lng-selectedOp-Payment">
-                    Proceed <br> to <br> Payment 
+                    Checkout 
                 </span>
             </a>
         </section>
     </article>
 </section>
+
 <style>
-    #check-list{
+    #check-list {
         display: grid;
         align-items: center;
         justify-content: center;
@@ -27,60 +28,56 @@ const { paymente = "/payment"} = Astro.props;
         background: var(--surface);
         margin: 1.8rem auto;
         width: 45vw;
-        box-shadow: 0 0 0 1px rgba(255,255,255,.04) inset,0 8px 40px rgba(0,0,0,.55);
-    
-        & .inputBoxData{
+        box-shadow: 0 0 0 1px rgba(255,255,255,.04) inset, 0 8px 40px rgba(0,0,0,.55);
+
+        & .inputBoxData {
             display: grid;
             place-items: center;
             min-height: 10vh;
-            & span{
+
+            & span {
                 font-size: 1.1rem;
                 text-shadow: 1px 1px 1px rgba(0,0,0,.55);
                 text-align: center;
             }
         }
-        & .proceed-to-payment{
+
+        & .proceed-to-payment {
             padding: 1.7vh 3vw;
             border: solid 3px var(--boxBorder);
             border-radius: 1.3rem;
             background-color: var(--letterColor01);
-            color:rgba(255, 255, 255, .7);
+            color: rgba(255, 255, 255, .7);
             font-size: clamp(1.1rem, var(--basicFontSize) * 3, 1.5rem);
             font-family: var(--basicFontFamily);
+            /* Always looks clickable — validation happens on click */
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 24px rgba(61, 142, 240, 0.3);
+                border-color: rgba(61, 142, 240, 0.6);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
         }
     }
 
-
-
-    /* ------------------- Media Query section  -------------------*/
-/* 1. Mobile under 400vw */
-@media screen and (max-width: 400px) {
-    /* Your mobile styles here */
-    #check-list{
-        padding: var(--servicePaddingMobileLess400);
-        margin: var(--serviceMarginMobileLess400);
-        width: var(--serviceWidthMobileLess400);
-    }
-    input[type="checkbox"]{
-        height: 20px;
-        &::before{
-            height: 20px;
+    /* ── Media Queries ── */
+    @media screen and (max-width: 400px) {
+        #check-list {
+            padding: var(--servicePaddingMobileLess400);
+            margin: var(--serviceMarginMobileLess400);
+            width: var(--serviceWidthMobileLess400);
         }
-
     }
-
-
-}
-
-/* 2. Tables between 800px and 1028px (inclusive) */
-@media screen and (min-width: 800px) and (max-width: 1028px) {
-    /* Your tablet/mid-size styles here */
-
-}
-
-/* 3. Everything above 1028px */
-@media screen and (min-width: 1028.01px) { 
-    /* Your desktop/large screen styles here */
-
-}
+    @media screen and (min-width: 800px) and (max-width: 1028px) { }
+    @media screen and (min-width: 1028.01px) { }
 </style>
+
+<!-- No script needed here: services.astro intercepts the #proceed-to-payment
+     click, validates all conditions, and either shows the modal or allows
+     the normal <a href> navigation to proceed. -->

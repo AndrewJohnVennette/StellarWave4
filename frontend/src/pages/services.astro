@@ -14,190 +14,249 @@ const Name = "Stellarwaves-5";
     <br><br><br><br><br>
 </Layout>
 
-<!--
-    IMPORTANT: must be `is:global` because Astro scopes <style> to the current
-    component only. These classes are applied to elements that live inside child
-    components (UserBlock, DestinationBlock, etc.), so they MUST be global to
-    reach them.
--->
+<!-- ── Validation Modal ─────────────────────────────────────────────────────
+     Placed here so it's outside all section stacking contexts and always
+     renders on top. Controlled entirely by the script below.
+────────────────────────────────────────────────────────────────────────── -->
+<div id="sw-modal-overlay" aria-modal="true" role="dialog" aria-labelledby="sw-modal-title" hidden>
+    <div id="sw-modal-box">
+        <div id="sw-modal-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2.5"/>
+                <line x1="24" y1="14" x2="24" y2="27" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="24" cy="34" r="2.2" fill="currentColor"/>
+            </svg>
+        </div>
+        <h2 id="sw-modal-title">Mission Incomplete</h2>
+        <p id="sw-modal-body">Please complete all required fields before proceeding.</p>
+        <ul id="sw-modal-issues"></ul>
+        <button id="sw-modal-close" autofocus>Got it</button>
+    </div>
+</div>
+
 <style is:global>
     body {
-        background: center / cover no-repeat url('../assets/images/background/msh1552.webp');
+        background: center / cover no-repeat url('../assets/images/background/sky01.webp');
     }
 
-    /* ── Locked sections: dimmed, blurred, not interactive ── */
-    section.servicePage.sw-locked {
-        opacity: 0.3;
-        pointer-events: none;
-        filter: blur(2px);
-        transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
-        transform: scale(0.99);
-        user-select: none;
+    /* ── Validation Modal ───────────────────────────────────────── */
+    #sw-modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.72);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        animation: swOverlayIn 0.25s ease both;
     }
 
-    /* ── Unlocked sections: fully visible and interactive ── */
-    section.servicePage.sw-unlocked {
-        opacity: 1;
-        pointer-events: all;
-        filter: none;
-        transform: scale(1);
-        transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-                    filter 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-                    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    #sw-modal-overlay[hidden] {
+        display: none;
+    }
+
+    #sw-modal-box {
+        position: relative;
+        background: linear-gradient(160deg, #0d1b2a 0%, #112236 100%);
+        border: 1px solid rgba(61, 142, 240, 0.35);
+        border-radius: 16px;
+        padding: 2.4rem 2.8rem 2rem;
+        max-width: 420px;
+        width: 90vw;
+        text-align: center;
+        box-shadow:
+            0 0 0 1px rgba(255,255,255,.05) inset,
+            0 24px 60px rgba(0,0,0,.7),
+            0 0 40px rgba(61,142,240,.08);
+        animation: swBoxIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    #sw-modal-icon {
+        width: 52px;
+        height: 52px;
+        margin: 0 auto 1.1rem;
+        color: #f59e0b;
+    }
+
+    #sw-modal-icon svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    #sw-modal-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #fff;
+        margin: 0 0 0.6rem;
+    }
+
+    #sw-modal-body {
+        font-size: 0.9rem;
+        color: rgba(255,255,255,0.6);
+        margin: 0 0 1rem;
+        line-height: 1.6;
+    }
+
+    #sw-modal-issues {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.6rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+        text-align: left;
+    }
+
+    #sw-modal-issues li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.55rem;
+        font-size: 0.88rem;
+        color: rgba(255,255,255,0.85);
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        border-radius: 8px;
+        padding: 0.5rem 0.75rem;
+        line-height: 1.45;
+    }
+
+    #sw-modal-issues li::before {
+        content: '⚠';
+        color: #f59e0b;
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+
+    #sw-modal-close {
+        display: inline-block;
+        padding: 0.65rem 2.2rem;
+        background: linear-gradient(135deg, #1e4fad, #3d8ef0);
+        color: #fff;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 4px 18px rgba(61,142,240,.35);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    #sw-modal-close:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 24px rgba(61,142,240,.5);
+    }
+
+    #sw-modal-close:active {
+        transform: translateY(0);
+    }
+
+    @keyframes swOverlayIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @keyframes swBoxIn {
+        from { opacity: 0; transform: translateY(18px) scale(0.97); }
+        to   { opacity: 1; transform: translateY(0)    scale(1);    }
     }
 </style>
 
 <script>
 // =============================================================================
-// services.astro — Progressive unlock orchestrator
+// services.astro — Validation-on-submit orchestrator
 //
-// Strategy: All unlock logic lives HERE, in a single script. We query the DOM
-// directly for elements from child components. No custom events needed between
-// components — this script owns the entire state machine.
-//
-// This avoids two Astro pitfalls:
-//   1. <style> scoping — fixed by `is:global` above.
-//   2. Script execution order — child component <script> tags may run AFTER
-//      this one, so we cannot rely on events dispatched from them at startup.
-//
-// Unlock chain:
-//   LOAD        → UserBlock active, all others locked
-//   UserBlock   → all 3 fields filled (first, last, valid email) → unlock DestinationBlock
-//   Destination → #destinationSelect has a non-empty value       → unlock PayloadBlock
-//   Payload     → at least 1 checkbox checked                    → unlock PreSend
-//                 all checkboxes unchecked again                 → re-lock PreSend
+// All four blocks are visible and interactive on load.
+// When #proceed-to-payment is clicked:
+//   1. Collect which conditions are NOT met.
+//   2. If any → show modal listing the issues; block navigation.
+//   3. If all met → allow the <a> to navigate to /payment.
 // =============================================================================
 
-// --- Grab the four <section class="servicePage"> wrappers in DOM order -------
-// Each Astro component renders exactly one <section class="servicePage">.
-// We rely on document order matching import order in services.astro.
-
-function getSections() {
-    return Array.from(document.querySelectorAll('section.servicePage'));
-}
-
-function lock(el) {
-    el.classList.remove('sw-unlocked');
-    el.classList.add('sw-locked');
-}
-
-function unlock(el) {
-    el.classList.remove('sw-locked');
-    el.classList.add('sw-unlocked');
-}
-
-// --- Initialise on DOMContentLoaded so all child HTML is in the DOM ----------
 document.addEventListener('DOMContentLoaded', () => {
 
-    const sections = getSections();
-    // sections[0] = UserBlock, [1] = DestinationBlock, [2] = PayloadBlock, [3] = PreSend
-    const [userSec, destSec, payloadSec, presendSec] = sections;
-
-    // Apply initial states
-    unlock(userSec);   // UserBlock is always active from the start
-    lock(destSec);
-    lock(payloadSec);
-    lock(presendSec);
-
-    // ── Grab all interactive elements from child components ──────────────────
-
-    // UserBlock fields
-    const fnInput = document.getElementById('first-name');
-    const lnInput = document.getElementById('last-name');
-    const emInput = document.getElementById('email');
-
-    // DestinationBlock select
-    const destSelect = document.getElementById('destinationSelect');
-
-    // PayloadBlock checkboxes
+    // ── Element refs ─────────────────────────────────────────────────────────
+    const fnInput          = document.getElementById('first-name');
+    const lnInput          = document.getElementById('last-name');
+    const emInput          = document.getElementById('email');
+    const destSelect       = document.getElementById('destinationSelect');
     const payloadCheckboxes = [
         document.getElementById('Text1'),
         document.getElementById('Picture1'),
         document.getElementById('Audio1'),
         document.getElementById('Video1'),
-    ].filter(Boolean); // filter out nulls if any id mismatches
+    ].filter(Boolean);
 
-    // ── State ────────────────────────────────────────────────────────────────
-    let userUnlocked    = false;
-    let destUnlocked    = false;
+    const paymentLink  = document.getElementById('proceed-to-payment');
+    const overlay      = document.getElementById('sw-modal-overlay');
+    const issuesList   = document.getElementById('sw-modal-issues');
+    const closeBtn     = document.getElementById('sw-modal-close');
 
-    // ── Helper: is the email format valid? ───────────────────────────────────
-    function validEmail(val) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+    // ── Validators ───────────────────────────────────────────────────────────
+    function validEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
     }
 
-    // ── Helper: are all user fields filled? ──────────────────────────────────
-    function userReady() {
-        return fnInput.value.trim() !== ''
-            && lnInput.value.trim() !== ''
-            && validEmail(emInput.value);
+    function collectIssues() {
+        const issues = [];
+
+        const fn = fnInput?.value.trim() ?? '';
+        const ln = lnInput?.value.trim() ?? '';
+        const em = emInput?.value.trim()  ?? '';
+
+        if (!fn)              issues.push('First name is required.');
+        if (!ln)              issues.push('Last name is required.');
+        if (!validEmail(em))  issues.push('A valid email address is required.');
+        if (!destSelect?.value) issues.push('Please select a destination.');
+        if (!payloadCheckboxes.some(cb => cb.checked))
+                              issues.push('Select at least one payload option (Text, Picture, Audio, or Video).');
+
+        return issues;
     }
 
-    // ── Helper: is a destination selected? ───────────────────────────────────
-    function destinationReady() {
-        return destSelect && destSelect.value !== '';
+    // ── Modal helpers ─────────────────────────────────────────────────────────
+    function showModal(issues) {
+        issuesList.innerHTML = issues
+            .map(msg => `<li>${msg}</li>`)
+            .join('');
+        overlay.removeAttribute('hidden');
+        closeBtn.focus();
     }
 
-    // ── Helper: is at least one payload checkbox checked? ────────────────────
-    function payloadReady() {
-        return payloadCheckboxes.some(cb => cb.checked);
+    function hideModal() {
+        overlay.setAttribute('hidden', '');
     }
 
-    // ── Step 1 → 2: Watch user fields ────────────────────────────────────────
-    function onUserInput() {
-        if (userReady()) {
-            if (!userUnlocked) {
-                userUnlocked = true;
-                unlock(destSec);
+    // ── Intercept payment link click ──────────────────────────────────────────
+    if (paymentLink) {
+        paymentLink.addEventListener('click', (e) => {
+            const issues = collectIssues();
+            if (issues.length > 0) {
+                e.preventDefault();   // block navigation
+                showModal(issues);
             }
-        } else {
-            // If user clears fields after unlocking, re-lock downstream
-            if (userUnlocked) {
-                userUnlocked = false;
-                destUnlocked = false;
-                lock(destSec);
-                lock(payloadSec);
-                lock(presendSec);
-                // Reset destination select to force re-evaluation
-                if (destSelect) destSelect.value = '';
-            }
-        }
+            // If issues.length === 0, the default <a href> navigation proceeds normally
+        });
     }
 
-    if (fnInput) fnInput.addEventListener('input', onUserInput);
-    if (lnInput) lnInput.addEventListener('input', onUserInput);
-    if (emInput) emInput.addEventListener('input', onUserInput);
+    // ── Close modal ───────────────────────────────────────────────────────────
+    closeBtn?.addEventListener('click', hideModal);
 
-    // ── Step 2 → 3: Watch destination select ─────────────────────────────────
-    function onDestChange() {
-        if (destinationReady()) {
-            if (!destUnlocked) {
-                destUnlocked = true;
-                unlock(payloadSec);
-            }
-        } else {
-            if (destUnlocked) {
-                destUnlocked = false;
-                lock(payloadSec);
-                lock(presendSec);
-            }
-        }
-    }
+    // Close on overlay backdrop click
+    overlay?.addEventListener('click', (e) => {
+        if (e.target === overlay) hideModal();
+    });
 
-    if (destSelect) destSelect.addEventListener('change', onDestChange);
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !overlay.hasAttribute('hidden')) hideModal();
+    });
 
-    // ── Step 3 → 4: Watch payload checkboxes ─────────────────────────────────
-    function onPayloadChange() {
-        if (payloadReady()) {
-            unlock(presendSec);
-        } else {
-            lock(presendSec);
-        }
-    }
-
-    payloadCheckboxes.forEach(cb => cb.addEventListener('change', onPayloadChange));
-
-    // ── Debug: log section count to catch DOM order issues ───────────────────
-    console.log('[services] sections found:', sections.length, sections.map(s => s.querySelector('article')?.id ?? '?'));
+    console.log('[services] validation-on-submit ready');
 });
 </script>
