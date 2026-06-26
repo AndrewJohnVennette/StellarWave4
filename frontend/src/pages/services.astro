@@ -213,8 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!ln)              issues.push('Last name is required.');
         if (!validEmail(em))  issues.push('A valid email address is required.');
         if (!destSelect?.value) issues.push('Please select a destination.');
-        if (!payloadCheckboxes.some(cb => cb.checked))
-                              issues.push('Select at least one payload option (Text, Picture, Audio, or Video).');
+        if (!payloadCheckboxes.some(cb => cb.checked)) issues.push('Select at least one payload option (Text, Picture, Audio, or Video).');
 
         return issues;
     }

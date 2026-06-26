@@ -7,16 +7,18 @@
     <article class="card" id="card-user">
         <label>User</label>
         <section class="inputBoxData">
-            <input type="text" id="first-name"required="required" placeholder="  First Name">
-            <span>* This is a required field</span>
+            <input type="text" id="first-name"required="required">
+            <label for="user-fname">First Name:</label>
         </section>
         <section class="inputBoxData">
-            <input type="text" id="last-name" required="required" placeholder="  First Last">
-            <span>* This is a required field</span>
+            <!-- <input type="text" name="" id="user-lname" required="required"> -->
+            <input type="text" id="last-name" required="required">
+            <label for="user-lname">Last Name:</label>
         </section>
         <section class="inputBoxData">
-            <input type="email" id="email" required="required"  placeholder="  Email">
-            <span>* This is a required field</span>
+            <!-- <input type="email" name="" id="user-email" required="required"> -->
+            <input type="email" id="email" required="required">
+            <label for="user-email">Email:</label>
         </section>
     </article>
 </section>
@@ -35,11 +37,28 @@
         0 0 0 1px rgba(255,255,255,.04) inset,
         0 8px 40px rgba(0,0,0,.55);
     
-    span{
-        color: #ed1207;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        font-weight: 700;
-        font-size: small;
+    &>label{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        background: var(--label-bg);
+        color: var(--accent);
+        padding: var(--label-pad-y) var(--label-pad-x);
+        border-radius: 30%;
+
+        outline: var(--border-w) solid var(--border);
+        outline-offset: 0px;
+
+        /* font-family: 'Playfair Display', Georgia, serif; */
+        font-size: .88rem;
+        font-weight: 500;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        animation: labelDrop .6s cubic-bezier(.22,1,.36,1) both;
     }
 }
 
@@ -103,6 +122,32 @@
         color: #fff;
         font-size: 1rem;
         transition: .5s;
+    }
+    & label{
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 10px;
+        pointer-events: none;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, .25);
+        text-transform: uppercase;
+        transition: .5s;
+    }
+    & input:valid ~ label,
+    & input:focus ~ label{
+        color: #00dfc4;
+        transform: translateX(10px) translateY(-7px);
+        font-size: .65rem;
+        padding: 0 10px;
+        background: #1d2b3a;
+        border-left: solid 1px #00dfc4;
+        border-right: solid 1px #00dfc4;
+        letter-spacing: .2rem;
+    }
+    & input:valid,
+    & input:focus{
+        border: solid 1px #00dfc4;
     }
 }
 

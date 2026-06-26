@@ -4,6 +4,7 @@
     <h2>Some text some text some text</h2>
     <article class="card unlocked" id="card-payload">
         <label>Payload</label>
+        <span>* Pick at list one option</span>
         <section class="center">
             <label class="checkBoxLabel" for="Text1">Text: &ensp; <span id="payloadTextPrice">$7.50</span>   </label>
             <input type="checkbox" name="" id="Text1" />
@@ -74,6 +75,14 @@
         margin: 1.8rem auto;
         width: 45vw;
         box-shadow: 0 0 0 1px rgba(255,255,255,.04) inset,0 8px 40px rgba(0,0,0,.55);
+        label+span{
+            color: #ed1207;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-weight: 700;
+            font-size: small;
+            position: relative;
+            top: -20px;
+        }
     }
     #card-payload section.center{
         margin: 3vh 0;
