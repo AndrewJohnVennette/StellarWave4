@@ -1,6 +1,7 @@
 ---
 import stellarLogo from '../assets/Stellarwave.png';
-const { services = "/services"} = Astro.props;
+//const { services = "/services"} = Astro.props;
+const { services = "/services",news = "/cosmosnews"} = Astro.props;
 ---
 <header id="GEV-navBar" class="flex">
             <!-- Company Logo -->
@@ -29,6 +30,11 @@ const { services = "/services"} = Astro.props;
                     <li>
                         <a href="#">
                             <span aria-hidden="true">Info</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href={news}>
+                            <span aria-hidden="true">News</span>
                         </a>
                     </li>
                     <li>

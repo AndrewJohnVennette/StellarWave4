@@ -13,9 +13,29 @@ const PORT = process.env.PORT || 3000;
 
 // ── Middleware — ORDER MATTERS ──────────────────────────────────────────────
 
+// const allowedOrigins = [
+//     'https://stellarwave-frontend.onrender.com',
+//     'http://localhost:4321'
+// ];
+
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') ?? [];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        // Allow requests with no origin (e.g. curl, Postman) and allowed origins
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error(`CORS blocked: ${origin}`));
+        }
+    }
+}));
+
+/*
 app.use(cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:4321',
 }));
+*/
 
 // Stripe webhook raw body MUST come before express.json()
 app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));

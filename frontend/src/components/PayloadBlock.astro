@@ -1,10 +1,21 @@
 ---
+interface Props {
+    item:{
+        itemName:string
+        itemPrice:number
+        itemID:number
+        itemInStock:number
+        itemWeight:number
+    }
+}
+const {item} = Astro.props
 ---
 <section class="servicePage">
     <h2>Some text some text some text</h2>
     <article class="card unlocked" id="card-payload">
         <label>Payload</label>
         <span>* Pick at list one option</span>
+
         <section class="center">
             <label class="checkBoxLabel" for="Text1">Text: &ensp; <span id="payloadTextPrice">$7.50</span>   </label>
             <input type="checkbox" name="" id="Text1" />
@@ -12,6 +23,7 @@
                 <h1>HELLO</h1>
             </article>
         </section>
+
         <section class="center">
             <label class="checkBoxLabel" for="Picture1">Picture: &ensp; <span id="payloadPicturePrice">$8.99</span></label>
             <input type="checkbox" name="" id="Picture1" />
@@ -19,6 +31,7 @@
                 <h1>HELLO</h1>
             </article>
         </section>
+
         <section class="center">
             <label class="checkBoxLabel" for="Audio1">Audio: &ensp; <span id="payloadAudioPrice">$10.50</span></label>
             <input type="checkbox" name="" id="Audio1" />
@@ -26,6 +39,7 @@
                 <h1>HELLO</h1>
             </article>
         </section>
+
         <section class="center">
             <label class="checkBoxLabel" for="Video1">Video: &ensp; <span id="payloadTextPrice">$15.55</span></label>
             <input type="checkbox" name="" id="Video1" />
@@ -33,6 +47,7 @@
                 <h1>HELLO</h1>
             </article>
         </section>
+
     </article>
 </section>
 

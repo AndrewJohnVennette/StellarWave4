@@ -7,7 +7,7 @@ const Name = "Stellarwaves-5";
 // The publishable key is read from .env at build/request time and written into
 // a <meta> tag so the client-side script in PaymentMethod.astro can pick it up
 // without embedding secrets in source code.
-const stripePk = import.meta.env.STRIPE_PUBLIC_KEY ?? import.meta.env.STRIPE_PUBLISHABLE_KEY ?? '';
+const stripePk = import.meta.env.STRIPE_PUBLISHABLE_KEY ?? import.meta.env.STRIPE_PUBLISHABLE_KEY ?? '';
 ---
 
 <Layout title={Name}>
@@ -34,7 +34,7 @@ const stripePk = import.meta.env.STRIPE_PUBLIC_KEY ?? import.meta.env.STRIPE_PUB
         left: 0;
         width: 100%;
         height: 100%;
-        background: center / cover no-repeat
+        background: center / 100% 100% no-repeat
             url(../assets/images/background/new/GSFC_20171208_Archive_e001434_orig.webp);
         opacity: 0.45;
         z-index: -1;

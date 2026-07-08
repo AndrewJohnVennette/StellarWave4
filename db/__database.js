@@ -38,40 +38,7 @@ db.exec(`
         email      TEXT NOT NULL,
         registered_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
-
-    CREATE TABLE IF NOT EXISTS Items (
-        itemID INTEGER PRIMARY KEY,
-        itemName TEXT NOT NULL,
-        itemWeight INTEGER,
-        itemPrice INTEGER
-    );
-
-    CREATE TABLE IF NOT EXISTS news (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        image TEXT NOT NULL,
-        article TEXT NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
 `);
-
-// Seed Items table with default rows (only if empty)
-const itemsCount = db.prepare('SELECT COUNT(*) AS count FROM Items').get().count;
-if (itemsCount === 0) {
-    const insertItem = db.prepare(
-        'INSERT INTO Items (itemID, itemName, itemWeight, itemPrice, itemInStock, itemImage) VALUES (?, ?, ?, ?, ?, ?)'
-    );
-    const defaultItems = [
-        [8539734, 'Text', 256, 300, 1,'image'],
-        [2226735, 'Photo', 5, 500, 1,'image'],
-        [6684982, 'Audio', 7, 700, 1,'image'],
-        [3626937, 'Video', 10, 900, 1,'image']
-    ];
-    const insertMany = db.transaction((items) => {
-        for (const item of items) insertItem.run(...item);
-    });
-    insertMany(defaultItems);
-}
 
 // Reusable query helpers
 const queries = {
@@ -98,12 +65,6 @@ const queries = {
     ),
     emailExists: db.prepare(
         'SELECT id FROM registrations WHERE email = ?'
-    ),
-    getAllItems: db.prepare(
-        'SELECT * FROM Items'
-    ),
-    getItem: db.prepare(
-        'SELECT * FROM Items WHERE itemID = ?'
     ),
 };
 
