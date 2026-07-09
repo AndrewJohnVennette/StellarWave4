@@ -1,12 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import spaceImage from '../assets/images/newsImages/starun2.webp';
 
 // 1. Fetch or define your data inside the Astro frontmatter (Server-side)
 const usersData = {
-  people: [
-    { name: "Alex", age: 28, job: "Developer" },
-    { name: "Elena", age: 34, job: "Designer" }
-  ]
+    people: [
+        { title: "Alex", image: spaceImage.src, text: "Developer" },
+        { title: "Elena", image: spaceImage.src, text: "Designer" },
+        { title: "Elena", image: spaceImage.src, text: "Designer" },
+        { title: "Elena", image: spaceImage.src, text: "Designer" }
+    ]
 };
 
 // 2. Convert the object into a JSON string so it can be passed to the attribute
@@ -16,7 +19,8 @@ const Name = "Stellarwaves-5";
 ---
 
 <Layout title={Name}>
-    <h1> Hello </h1>
+    <br><br><br><br>
+    <br><br><br><br>
 
     <gev-showitems data-json={jsonString}></gev-showitems>
     
@@ -42,12 +46,16 @@ const Name = "Stellarwaves-5";
         /* opacity: 0.45; */
         z-index: -1;
     }
-
-    main {
+    
+    /* main {
         height: auto;
+        width: 100%;
         margin: 15rem 0 45vh 0;
-    }
+    } */
 </style>
+<style is:global>
+    main { width: 100%; }
+</style> 
 <script>
   // Assuming your web component file is located at /src/scripts/show-data.js
   import "../web-components/GEV-showItems.js";
