@@ -39,7 +39,7 @@ db.exec(`
         registered_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
-    CREATE TABLE IF NOT EXISTS Items (
+    CREATE TABLE IF NOT EXISTS items (
         itemID INTEGER PRIMARY KEY,
         itemName TEXT NOT NULL,
         itemWeight INTEGER,
@@ -55,20 +55,58 @@ db.exec(`
     );
 `);
 
-// Seed Items table with default rows (only if empty)
-const itemsCount = db.prepare('SELECT COUNT(*) AS count FROM Items').get().count;
+// Seed items table with default rows (only if empty)
+const itemsCount = db.prepare('SELECT COUNT(*) AS count FROM items').get().count;
 if (itemsCount === 0) {
+    // NOTE: the `items` table (see CREATE TABLE above) only has 4 columns
+    // (itemID, itemName, itemWeight, itemPrice). The insert below used to
+    // reference itemInStock/itemImage, which don't exist on this table and
+    // threw "table items has no column named itemInStock". Trimmed to match
+    // the actual schema.
     const insertItem = db.prepare(
-        'INSERT INTO Items (itemID, itemName, itemWeight, itemPrice, itemInStock, itemImage) VALUES (?, ?, ?, ?, ?, ?)'
+        'INSERT INTO items (itemID, itemName, itemWeight, itemPrice) VALUES (?, ?, ?, ?)'
     );
     const defaultItems = [
-        [8539734, 'Text', 256, 300, 1,'image'],
-        [2226735, 'Photo', 5, 500, 1,'image'],
-        [6684982, 'Audio', 7, 700, 1,'image'],
-        [3626937, 'Video', 10, 900, 1,'image']
+        [8539734, 'Text', 256, 300],
+        [2226735, 'Photo', 5, 500],
+        [6684982, 'Audio', 7, 700],
+        [3626937, 'Video', 10, 900]
     ];
     const insertMany = db.transaction((items) => {
         for (const item of items) insertItem.run(...item);
+    });
+    insertMany(defaultItems);
+}
+
+// Seed news table with default rows (only if empty)
+// NOTE: this used to redeclare `const itemsCount`, which is a SyntaxError
+// ("Identifier 'itemsCount' has already been declared") since a name can't
+// be declared twice with `const` in the same scope. That crashed the entire
+// module on load. Renamed to `newsCount`.
+const newsCount = db.prepare('SELECT COUNT(*) AS count FROM news').get().count;
+if (newsCount === 0) {
+    // NOTE: dropped `created_at` from the insert. The table already defines
+    // `created_at DATETIME DEFAULT CURRENT_TIMESTAMP`, so forcing in a plain
+    // string like '10/11/2026' both overrides that default and stores a
+    // non-ISO format that won't sort/compare correctly against real
+    // timestamps. Letting the column default apply is consistent with how
+    // the `items` seed above does it.
+    const insertItem = db.prepare(
+        'INSERT INTO news (title, image, article) VALUES (?, ?, ?)'
+    );
+    const defaultItems = [
+        // NOTE: filenames corrected to match what's actually on disk in
+        // frontend/public/images/destinationBlock/ — both of these were
+        // mismatched and would have produced broken <img> tags:
+        //   '06Luyten-b.jpg'        -> actual file is '06Luyten-b.jpeg'
+        //   '04TeegardensStar.jepg' -> typo, actual file is '...jpeg'
+        ["News1", '05Kepler-186f.jpg', "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas consectetur sunt fugiat suscipit modi nemo! Maxime nostrum dicta placeat dolore!"],
+        ["News2", '06Luyten-b.jpeg', "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas consectetur sunt fugiat suscipit modi nemo! Maxime nostrum dicta placeat dolore!"],
+        ["News3", '04TeegardensStar.jpeg', "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas consectetur sunt fugiat suscipit modi nemo! Maxime nostrum dicta placeat dolore!"],
+        ["News4", 'Sagittarius.webp', "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas consectetur sunt fugiat suscipit modi nemo! Maxime nostrum dicta placeat dolore!"]
+    ];
+    const insertMany = db.transaction((news) => {
+        for (const item of news) insertItem.run(...item);
     });
     insertMany(defaultItems);
 }
@@ -100,10 +138,15 @@ const queries = {
         'SELECT id FROM registrations WHERE email = ?'
     ),
     getAllItems: db.prepare(
-        'SELECT * FROM Items'
+        'SELECT * FROM items'
     ),
     getItem: db.prepare(
-        'SELECT * FROM Items WHERE itemID = ?'
+        'SELECT * FROM items WHERE itemID = ?'
+    ),
+    // Added: was missing entirely, so there was no way for a route to read
+    // the news table back out. Needed for GET /api/news.
+    getAllNews: db.prepare(
+        'SELECT * FROM news ORDER BY created_at DESC'
     ),
 };
 

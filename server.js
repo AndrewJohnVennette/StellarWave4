@@ -7,6 +7,7 @@ const uploadRoute   = require('./routes/upload');
 const registerRoute = require('./routes/register');
 const usersRoute    = require('./routes/users');
 const paymentRoute  = require('./routes/payment');   // ← NEW
+const newsRoute     = require('./routes/news');       // ← NEW: GET /api/news
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -50,6 +51,7 @@ app.use('/api/upload',   uploadRoute);
 app.use('/api/register', registerRoute);
 app.use('/api/users',    usersRoute);
 app.use('/api/payment',  paymentRoute);   // ← /api/payment/create-intent  &  /api/payment/confirm
+app.use('/api/news',     newsRoute);       // ← GET /api/news
 
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', time: new Date().toISOString() });

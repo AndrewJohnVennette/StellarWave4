@@ -1,0 +1,287 @@
+---
+import Layout from '../layouts/Layout.astro';
+import planetBottle from '../assets/images/webp-images/planet-2-blu-starbottle.webp';
+import laserShip from '../assets/images/webp-images/laser.webp';
+import starBottle from '../assets/images/newsImages/star-bottle-7B.webp';
+import saturnFarewell from '../assets/images/background/new/saturn-farewell.webp';
+
+const Name = "Stellarwave-5";
+const PageTitle = "Stellarwave-5 — Info";
+---
+
+<Layout title={PageTitle}>
+    <section class="info-hero">
+        <h1 class="info-hero__title">
+            <span aria-hidden="true">Stellarwave</span>
+            <span class="info-hero__accent">-5</span>
+        </h1>
+        <p class="info-hero__tagline">
+            Corporate Info
+        </p>
+        <p class="info-hero__lead">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+            enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat.
+        </p>
+    </section>
+
+    <section class="info-block">
+        <h2>Our Mission</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+            et volutpat felis, non laoreet nulla. Vivamus quis odio at lectus
+            vulputate varius vitae nec odio. Aenean venenatis justo sed orci
+            consequat, vitae fermentum lorem placerat. Duis euismod turpis nec
+            nisl finibus, at posuere mauris maximus.
+        </p>
+        <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+            quae ab illo inventore veritatis et quasi architecto beatae vitae
+            dicta sunt explicabo.
+        </p>
+    </section>
+
+    <section class="info-block">
+        <h2>Our Vision</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+            placerat turpis sit amet felis ultricies, sed gravida erat
+            tincidunt. Proin posuere urna a pretium tincidunt. Phasellus
+            tincidunt, tortor ac malesuada consequat, sem arcu varius mi, id
+            fermentum est nibh quis odio.
+        </p>
+        <p>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui
+            blanditiis praesentium voluptatum deleniti atque corrupti quos
+            dolores et quas molestias excepturi sint occaecati cupiditate non
+            provident.
+        </p>
+    </section>
+
+    <section class="info-feature">
+        <article class="info-feature__card">
+            <img src={planetBottle.src} alt="Planet featured image" class="info-feature__img" />
+            <label>Planetary Operations</label>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                ornare, neque sed faucibus porttitor, justo nisi ornare erat,
+                id dictum risus arcu ac lorem.
+            </p>
+        </article>
+        <article class="info-feature__card">
+            <img src={laserShip.src} alt="Transmission beam featured image" class="info-feature__img" />
+            <label>Deep Space Transmissions</label>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                ornare, neque sed faucibus porttitor, justo nisi ornare erat,
+                id dictum risus arcu ac lorem.
+            </p>
+        </article>
+        <article class="info-feature__card">
+            <img src={starBottle.src} alt="Constellation bottle featured image" class="info-feature__img" />
+            <label>Stellar Messaging</label>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                ornare, neque sed faucibus porttitor, justo nisi ornare erat,
+                id dictum risus arcu ac lorem.
+            </p>
+        </article>
+    </section>
+
+    <section class="info-block">
+        <h2>Company Overview</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+            eleifend, augue vel ultricies lacinia, lectus nibh efficitur arcu,
+            nec ultrices nulla nisi vitae justo. Aliquam erat volutpat.
+            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+            posuere cubilia curae.
+        </p>
+        <p>
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit
+            aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
+            ipsum quia dolor sit amet.
+        </p>
+        <div class="info-banner">
+            <img src={saturnFarewell.src} alt="Saturn featured image" class="info-banner__img" />
+            <div class="info-banner__text">
+                <h3>Reaching Beyond the Horizon</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Integer a erat a ipsum luctus dignissim id quis eros.
+                    Fusce suscipit, leo id tristique tincidunt, risus libero
+                    consequat justo, at pretium enim justo nec tortor.
+                </p>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style is:global>
+    body {
+        background: center / 100% 100% no-repeat url('../assets/images/background/new/w49b_lg-1.webp');
+    }
+</style>
+
+<style>
+    .info-hero {
+        margin-top: 18vh;
+        padding: 3rem 6vw 2rem;
+        text-align: center;
+    }
+    .info-hero__title {
+        font-size: clamp(2.6rem, 8vw, 4.6rem);
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        margin: 0 0 .5rem;
+        color: var(--text);
+        font-weight: 400;
+    }
+    .info-hero__accent {
+        color: var(--accent);
+    }
+    .info-hero__tagline {
+        font-size: clamp(.85rem, 2.4vw, 1.05rem);
+        letter-spacing: .45em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 1.4rem;
+    }
+    .info-hero__lead {
+        max-width: 56ch;
+        margin: 0 auto;
+        color: var(--text);
+        font-size: clamp(.85rem, 2.4vw, 1rem);
+        line-height: 1.8;
+        letter-spacing: .02em;
+        font-weight: 300;
+    }
+
+    .info-block {
+        width: min(60rem, 90vw);
+        margin: 3.5rem auto;
+        padding: 2.2rem 2.4rem;
+        border: var(--border-w) solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+        backdrop-filter: blur(1rem);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, .55);
+        box-sizing: border-box;
+    }
+    .info-block h2 {
+        position: relative;
+        color: var(--accent);
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+        margin: 0 0 1.2rem;
+        text-align: center;
+    }
+    .info-block p {
+        color: var(--text);
+        font-size: clamp(.8rem, 2.2vw, .92rem);
+        font-weight: 300;
+        line-height: 1.85;
+        letter-spacing: .01em;
+        text-align: center;
+        margin: 0 0 1rem;
+    }
+    .info-block p:last-child {
+        margin-bottom: 0;
+    }
+
+    .info-feature {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        width: min(72rem, 92vw);
+        margin: 3.5rem auto;
+    }
+    .info-feature__card {
+        position: relative;
+        border: var(--border-w) solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+        backdrop-filter: blur(1rem);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, .55);
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    .info-feature__card > label {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        background: var(--label-bg);
+        color: var(--accent);
+        padding: var(--label-pad-y) var(--label-pad-x);
+        border-radius: 30%;
+        outline: var(--border-w) solid var(--border);
+        outline-offset: 0px;
+        font-size: .72rem;
+        font-weight: 500;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+    .info-feature__img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+        border-bottom: var(--border-w) solid var(--border);
+    }
+    .info-feature__card p {
+        color: var(--text);
+        font-size: clamp(.78rem, 2.2vw, .88rem);
+        font-weight: 300;
+        line-height: 1.75;
+        letter-spacing: .01em;
+        text-align: center;
+        margin: 0;
+        padding: 1.4rem 1.3rem 1.6rem;
+    }
+
+    .info-banner {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 1.6rem;
+        align-items: center;
+        margin-top: 1.6rem;
+        padding-top: 1.6rem;
+        border-top: 1px solid var(--boxBorder);
+    }
+    .info-banner__img {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        border: var(--border-w) solid var(--border);
+        border-radius: var(--radius);
+    }
+    .info-banner__text h3 {
+        color: var(--accent);
+        font-size: .9rem;
+        font-weight: 500;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        margin: 0 0 .8rem;
+        text-align: center;
+    }
+    .info-banner__text p {
+        margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 768px) {
+        .info-feature {
+            grid-template-columns: 1fr;
+        }
+        .info-banner {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

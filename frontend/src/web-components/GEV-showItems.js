@@ -3,7 +3,7 @@ const componentStyles = `
 .GEV-showItem-main-container {
     display: grid;
     min-height: 400px;
-    width: 90%;
+    width: 90vw;
     max-width: 1000px;
     margin: 0 auto 30px auto;
     border: 2px solid #fff;
@@ -28,7 +28,7 @@ const componentStyles = `
     }
     & .image-area {
         grid-area: img;
-        width: 100%;
+        width: 35vw;
         height: 100%;
         display: flex;
         justify-content: center;
